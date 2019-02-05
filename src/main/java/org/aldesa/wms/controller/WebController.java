@@ -155,9 +155,9 @@ public class WebController {
 
 		List<InformeIngreso> observ1 = bDao.getInformeIngreso(deposito);
 		
-        List<MercRecibidalV> ingresos = bDao.getMercRecibidalV(deposito);
+        List<MercRecibida> ingresos = bDao.getMercRecibida(deposito);
         int tdeclarada = 0, trecibida = 0, tsaldo = 0, taveriada = 0;
-        for (MercRecibidalV m : ingresos) {
+        for (MercRecibida m : ingresos) {
             tdeclarada = tdeclarada + Integer.parseInt(m.getDeclarada());
             trecibida = trecibida + Integer.parseInt(m.getRecibida());
             taveriada = taveriada + Integer.parseInt(m.getAveriada());
@@ -175,22 +175,33 @@ public class WebController {
                 mdl.addObject("enc", observ1);
             } else {
             	
-            	if(verificacionInforme.equals("A")) {            		
-                mdl = new ModelAndView("reporte.recibida_simple2");
+            	if(verificacionInforme.equals("L")) {     
+            	List<MercRecibidalV> ingresosL = bDao.getMercRecibidalV(deposito);
+            	tdeclarada = 0; trecibida = 0; tsaldo = 0; taveriada = 0;
+                for (MercRecibidalV m : ingresosL) {
+                    tdeclarada = tdeclarada+Integer.parseInt(m.getDeclarada());
+                    trecibida =  trecibida+Integer.parseInt(m.getRecibida());
+                    taveriada = taveriada+Integer.parseInt(m.getAveriada());
+                    tsaldo = tsaldo+Integer.parseInt(m.getSaldo());
+                }
+                mdl = new ModelAndView("reporte.recibida_simple_Nolote");
+                mdl.addObject("ingresos", ingresosL);
                 inf = observ1.get(0);
                 mdl.addObject("enc", inf);
                 mdl.addObject("cliente", cliente);
                 
             	}
-            	if(verificacionInforme.equals("L")) {
-            		mdl = new ModelAndView("reporte.recibida_simple_Nolote");
+            	if(verificacionInforme.equals("A")) {
+                    
+            		mdl = new ModelAndView("reporte.recibida_simple2");    
+            		mdl.addObject("ingresos", ingresos);
+
                     inf = observ1.get(0);
                     mdl.addObject("enc", inf);
                     mdl.addObject("cliente", cliente);
                 }
             }
-            mdl.addObject("tipo", verificacionInforme+"verif "+inf.getTipoDeposito());
-            mdl.addObject("ingresos", ingresos);
+            mdl.addObject("tipo", inf.getTipoDeposito());
             Calendar c = Calendar.getInstance();
             mdl.addObject("fecha",(new SimpleDateFormat("dd/MM/yyy")).format(new Date()));
             mdl.addObject("hora", (new SimpleDateFormat("HH:mm:ss")).format(c.getTime()));
