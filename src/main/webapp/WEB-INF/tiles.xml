@@ -167,9 +167,9 @@
         <put-attribute name="title" value="INFORME DE INGRESO " />
         <put-attribute name="body" value="/WEB-INF/views/reporte/recibida_simple2.jsp" />
     </definition>
-	<definition name="reporte.recibida_simple_Nolote" extends="wms.report.base">
+	<definition name="reporte.recibida_simplel" extends="wms.report.base">
         <put-attribute name="title" value="INFORME DE INGRESO No_Lote " />
-        <put-attribute name="body" value="/WEB-INF/views/reporte/recibida_simple_Nolote.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/reporte/recibida_simplel.jsp" />
     </definition>
     <definition name="reporte.recibida_desconsolidado" extends="wms.report.base">
         <put-attribute name="title" value="INFORME DE INGRESO NO. " />

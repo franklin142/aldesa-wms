@@ -123,7 +123,7 @@ public class WebController {
 	}
 
 	@RequestMapping(value = "reporte/recibida_simple/{deposito}/{vista}/{forma}/{recibido}/{entregado}/{observacion}/{cliente}", method = RequestMethod.GET)
-	public ModelAndView getreporte_recepcion_simple2(
+	public ModelAndView c(
 			@PathVariable String deposito,
 			@PathVariable String vista,
 			@PathVariable String forma,
@@ -184,7 +184,7 @@ public class WebController {
                     taveriada = taveriada+Integer.parseInt(m.getAveriada());
                     tsaldo = tsaldo+Integer.parseInt(m.getSaldo());
                 }
-                mdl = new ModelAndView("reporte.recibida_simple_Nolote");
+                mdl = new ModelAndView("reporte.recibida_simplel");
                 mdl.addObject("ingresos", ingresosL);
                 inf = observ1.get(0);
                 mdl.addObject("enc", inf);
@@ -559,6 +559,7 @@ public class WebController {
 		MercadRecibida dep1 = mercDao.getById(pk);
 		Cliente cliente = bDao.getClienteById(dep1.getCliente());
         List<BulkSugerido> bs = bDao.getSugerencia(deposito);
+        
 		if(_method.equalsIgnoreCase("put")){
 			bDao.verificaBulk(deposito);
 			Bulk b = new Bulk();
@@ -640,7 +641,7 @@ public class WebController {
                 if(Double.parseDouble(porbulk[i])<=0) continue;
                 Date fechavtoConverted = new Date();
 				try {
-					fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto[i])):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
+					fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("yyyy/MM/dd")).parse(fechavto[i])):(new SimpleDateFormat("yyyy/MM/dd")).format(new Date()));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

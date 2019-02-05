@@ -168,30 +168,34 @@
                                                                                                 fontSize: 9,
                                                                                                 table: {
                                                                                                     headerRows: 3,
-                                                                                                    widths: [60, 60, 145, 45, 45, 45, 45, 60],
+                                                                                                    widths: [50, 50, 100, 40, 40, 40, 40, 15,55,40],
                                                                                                     body: [
                                                                                                         [{rowSpan: 3, text: 'Codigo Mercaderia'},
                                                                                                             {rowSpan: 3, text: 'Codigo Referencia'},
                                                                                                             {rowSpan: 3, text: 'Descripcion Mercaderia'},
                                                                                                             {text: 'CANTIDAD', colSpan: 4, alignment: 'center'}, '', '', '',
-                                                                                                            {rowSpan: 3, text: 'Unidad Medida'}],
+                                                                                                            {rowSpan: 3, text: 'UM'},
+                                                                                                            {rowSpan: 3, text: 'No. Lote'},
+                                                                                                            {rowSpan: 3, text: 'Fecha Vto. Lote'}],
                                                                                                         ['', '', '', {rowSpan: 2, text: 'Declarada'}, {text: 'Recibidos', colSpan: 2, alignment: 'center'},
-                                                                                                            '', {rowSpan: 2, text: 'Diferencia'}, ''],
-                                                                                                        ['', '', '', '', 'Buenos', 'Averiados', '', ''],
+                                                                                                            '', {rowSpan: 2, text: 'Diferencia'}, '','',''],
+                                                                                                        ['', '', '', '', 'Buenos', 'Averiados', '', '','',''],
                                                                                                  <c:forEach var="m" items="${ ingresos }" varStatus="loop">[
                                                                                                                 '${ m.getCodigoMercaderia() }', '${ m.getCodigoReferencia() }',
                                                                                                                 '${ m.getDescripcion() }', {text: '${ m.getDeclarada() }', alignment: 'right'},
                                                                                                         {text: '${ m.getRecibida() }', alignment: 'right'},
                                                                                                         {text: '${ m.getAveriada() }', alignment: 'right'},
                                                                                                         {text: '${ m.getSaldo() }', alignment: 'right'},
-                                                                                                        '${ m.getUnidadMedida() }'
+                                                                                                        {text: '${ m.getUnidadMedida() }',alignment: 'center',fontSize: 8},
+																										{text: '${ m.getnLote() }',alignment: 'center'},
+																										{text: '${ m.getFechaVto() }',alignment: 'center'},
                                                                                                         ],</c:forEach>
                                                                                                     ]
                                                                                                 }
                                                                                             },
-                                                                                            {fontSize: 9, bold: true, margin: [0, 2, 0, 0], stack: [{columns: [{text: ' ', width: 200}, {text: 'TOTALES ', width: 80},
-                                                                                                            {text: '${ tdeclarada }', width: 60}, {text: '${ trecibida }', width: 55},
-                                                                                                            {text: '${ taveriada }', width: 55}, {text: '${ tsaldo }', width: 55},
+                                                                                            {fontSize: 9, bold: true, margin: [0, 2, 0, 0], stack: [{columns: [{text: ' ', width: 148}, {text: 'TOTALES ', width: 76},
+                                                                                                            {text: '${ tdeclarada }', width: 49}, {text: '${ trecibida }', width: 49},
+                                                                                                            {text: '${ taveriada }', width: 48}, {text: '${ tsaldo }', width: 50},
                                                                                                             {text: ' ', width: 60}], alignment: 'right'}]},
                                                                                             {fontSize: 9, margin: [0, 10, 0, 0], text: [{text: 'Observaciones: ', bold: true}, '${enc.getObservaciones()}']},
                                                                                             {fontSize: 9, margin: [0, 20, 0, 0], stack: [
@@ -207,4 +211,3 @@
                                                                                     };
 
 </script>
-
