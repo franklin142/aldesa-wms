@@ -58,7 +58,7 @@
                                                 },
                                                 {
                                                     margin: [25, 15, 0, 0],
-                                                    columns: [{text: 'INFORME DE MERCADERIA RECIBIDA   ${enc.getNumeroInforme()} CON NO. LOTE', fontSize: 14, width: 350}, {text: '${enc.getNombreReporte()}', alignment: 'right'}]
+                                                    columns: [{text: 'INFORME DE MERCADERIA RECIBIDA   ${enc.getNumeroInforme()}', fontSize: 14, width: 350}, {text: '${enc.getNombreReporte()}', alignment: 'right'}]
                                                 },
                                                 {
                                                     margin: [25, 10, 0, 0],
