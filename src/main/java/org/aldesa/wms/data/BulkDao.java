@@ -62,6 +62,7 @@ public interface BulkDao {
     public List<BulkActivos> getBulkActivos(String deposito);
     public List<MercRecibida> getMercRecibida();
     public List<MercRecibida> getMercRecibida(String deposito);
+    public List<MercRecibidalV> getMercRecibidalV(String deposito);
     public void updateFechaFinDescarga(MercadRecibida mr);
     public void updateFechaFinDescargaD(MercadRecibida mr);
     public List<OrdenEntrega> getOrdenEntrega(Integer orden, String cliente);

@@ -606,7 +606,15 @@ public class BulkDaoImpl implements BulkDao{
         criteria.select(user);
         return em.createQuery(criteria).getResultList();
     }
-
+    @Override
+    public List<MercRecibidalV> getMercRecibidalV(String deposito) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<MercRecibidalV> criteria = cb.createQuery(MercRecibidalV.class);
+        Root<MercRecibidalV> user = criteria.from(MercRecibidalV.class);
+        criteria.where(cb.equal(user.get("deposito"), deposito));
+        criteria.select(user);
+        return em.createQuery(criteria).getResultList();
+    }
     public void updateFechaFinDescarga(MercadRecibida mr){
         String sqlString= "Update MERCAD_RECIBIDA "
                 + "Set Hora_fin_descarga=:hora "

@@ -155,9 +155,9 @@ public class WebController {
 
 		List<InformeIngreso> observ1 = bDao.getInformeIngreso(deposito);
 		
-        List<MercRecibida> ingresos = bDao.getMercRecibida(deposito);
+        List<MercRecibidalV> ingresos = bDao.getMercRecibidalV(deposito);
         int tdeclarada = 0, trecibida = 0, tsaldo = 0, taveriada = 0;
-        for (MercRecibida m : ingresos) {
+        for (MercRecibidalV m : ingresos) {
             tdeclarada = tdeclarada + Integer.parseInt(m.getDeclarada());
             trecibida = trecibida + Integer.parseInt(m.getRecibida());
             taveriada = taveriada + Integer.parseInt(m.getAveriada());

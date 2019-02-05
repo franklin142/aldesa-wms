@@ -12,6 +12,7 @@
 		<jta-data-source>java:jboss/datasources/wmsaldesa</jta-data-source>
 		<class>org.aldesa.wms.model.Bodega</class>
 		<class>org.aldesa.wms.model.MercadRecibida</class>
+		<class>org.aldesa.wms.model.MercadRecibidalV</class>		
 		<class>org.aldesa.wms.model.MercadRecibidaPK</class>
 		<class>org.aldesa.wms.model.Deposito</class>
 		<class>org.aldesa.wms.model.PosicionDisponibleV</class>

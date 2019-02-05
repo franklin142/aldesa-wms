@@ -186,7 +186,9 @@
                                                                                                         {text: '${ m.getRecibida() }', alignment: 'right'},
                                                                                                         {text: '${ m.getAveriada() }', alignment: 'right'},
                                                                                                         {text: '${ m.getSaldo() }', alignment: 'right'},
-                                                                                                        '${ m.getUnidadMedida() }','',''
+                                                                                                        {text:'${ m.getUnidadMedida() }',alignment: 'center'},
+																										{text:'${ m.getnLote() }',alignment: 'center'},
+																										{text:'${ m.getFechaVto() }',alignment: 'center'},
                                                                                                         ],</c:forEach>
                                                                                                     ]
                                                                                                 }
