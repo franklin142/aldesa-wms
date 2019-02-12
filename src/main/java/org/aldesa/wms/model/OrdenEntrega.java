@@ -14,7 +14,7 @@ public class OrdenEntrega {
     private Integer retiroMercaderia;
     @Column
     private String deposito;
-    @Column
+    @Column(name="Consignatario")
     private String consignatario;
     @Column
     private Integer cantidad;

@@ -11,7 +11,7 @@ $(document).ready(function(){
 	    showAnim: "fadeIn",
 	    button:false,
 	    buttonImage:false,
-	    dateFormat: 'dd/mm/yyyy'
+	    dateFormat: 'yyyy/MM/dd'
 	});
 	
 });
@@ -140,7 +140,7 @@ $(document).ready(function(){
                                 </select>
                             </td>
                             <td>
-								<input type="number" min="1" name="nolote" id="nolote" class="form-control det_bulk_nlote"
+								<input type="text" min="1" name="nolote" id="nolote" class="form-control det_bulk_nlote"
 								<c:if test="${ finalizado }">disabled</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
 								value="${ m.getnLote()}"
@@ -148,7 +148,7 @@ $(document).ready(function(){
 							</td>
 							<td>
 							
-								<input type="date" name="fechavto" id="fechavto" class="form-control det_bulk_fechavto" 
+								<input type="text" name="fechavto" id="fechavto" class="form-control det_bulk_fechavto" 
 								<c:if test="${ finalizado }">disabled</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
 								value="${ m.getFechaVto()}"

@@ -11,7 +11,7 @@
 	    	showAnim: "fadeIn",
 	    	button:false,
 	    	buttonImage:false,
-	   		dateFormat: 'dd/mm/yyyy'
+	   		dateFormat: 'yyyy/MM/dd'
 		});
 	
 	});
@@ -202,7 +202,7 @@
 								</select>
 							</td>
 							<td>
-								<input type="number" min="1" name="nolote" id="nolote" class="form-control"
+								<input type="text" min="1" name="nolote" id="nolote" class="form-control"
 								<c:if test="${ finalizado }">disabled</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
 								class="det_bulk_nlote"
@@ -210,7 +210,7 @@
 							</td>
 							<td>
 							
-								<input type="date" name="fechavto" id="fechavto" class="form-control class_fechavto" 
+								<input type="text" name="fechavto" id="fechavto" class="form-control class_fechavto" 
 								<c:if test="${ finalizado }">disabled</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
 								class="det_bulk_fechavto"
@@ -309,16 +309,17 @@
 							//Franklin Flores valida Campos vacios para No_Lote y Fec_Venc_Lote
 							var validarNLote=true;
                     		var tabla = document.getElementsByTagName("table")[0];
+                    		console.log(tabla);
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
-                					var valInputNLote = tabla.childNodes[1].children[1].cells[4].children[0].value;	
-                					if(valInputNLote.length!=0){
-                    					var valInputFechavto = tabla.childNodes[1].children[1].cells[5].children[0].value;	
+                					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
+                					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
+                    					var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
 
                 						if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
-    												tabla.childNodes[1].children[1].cells[0].childNodes[0].data+
+    												tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
     												'\". \nPero el valor de fecha de vencimiento esta vacío');
     										return;
                 						}

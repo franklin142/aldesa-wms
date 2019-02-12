@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-
+	//Franklin Flores... informe preparacion a modificar
     var opts = {
         width:  1,
         height: 10,

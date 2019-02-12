@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%><!DOCTYPE html>
 
 <script>
+//Franklin Flores... modificar reporte de bulks creados
     var usuario = getCookie('user');
     if(usuario==null) document.location.href ='/wms-aldesa/rest/auth/login-web';
     if (usuario===null) usuario=' ';

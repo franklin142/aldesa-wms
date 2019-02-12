@@ -1263,64 +1263,80 @@ public class WebController {
 			@PathVariable String tipo,
 			@PathVariable String cliente,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		if(!ControllerUtils.isValidUser(request, uDao))
-			return new ModelAndView("redirect:/rest/auth/login-web");
-		if(!ControllerUtils.isAllowed(request, uDao, 30))
-			return new ModelAndView("wms.sin_permiso");
-		List<String> depositos = new ArrayList<String>();
-		List<OrdenEntrega> ordenes  =bDao.getOrdenEntregaP(orden,cliente);
-		HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
-		List<Object[]> stdepositos = bDao.getSubtotalesOrdenEntregaP(orden,cliente);
-        List<Object[]> tdepositos = bDao.getTotalesOrdenEntregaP(orden,cliente);
-		Integer tcantidad = 0, tpreparada=0, tsaldo=0, tentregada=0;
-		String depo, codigo;
-		for (OrdenEntrega ord:ordenes){
-			if (ord == null) continue;
-			depo = ord.getDeposito();
-			codigo = ord.getCodigo();
-			if(!depositos.contains(depo))
-				depositos.add(depo);
-			if(ordenesHash.containsKey(depo+codigo+ord.getCorrelativo())){
-				OrdenEntrega o = ordenesHash.get(depo+codigo+ord.getCorrelativo());
-				if(ord.getEstante() == null) continue;
-				o.setEstante(o.getEstante() + "\\n" +ord.getEstante());
-                o.setEstadoMercaderia(o.getEstadoMercaderia() + "\\n" + ord.getEstadoMercaderia());
-                o.setTipoUbicacion(o.getTipoUbicacion() + "\\n" + ord.getTipoUbicacion());
-                o.setSaldos(o.getSaldos() + "\\n" + ord.getSaldo().toString());
-				o.setPreparadas(o.getPreparadas() + "\\n"+ord.getCantidadPreparada().toString());
-				o.setEntregadas(o.getEntregadas() + "\\n"+ord.getEntregada().toString());
-                o.setCodigoBulk(o.getCodigoBulk() + "\\n"+ord.getCodigoBulk());
-				o.setStatusUbicacion(o.getStatusUbicacion() + "\\n"+ord.getStatusUbicacion());
-			}
-			else{
-                ord.setSaldos(""+ord.getSaldo().toString());
-                ord.setPreparadas(""+ord.getCantidadPreparada().toString());
-                ord.setEntregadas(""+ord.getEntregada().toString());
-				ordenesHash.put(depo+codigo+ord.getCorrelativo(), ord);
-			}
-		}
-		for(Object[] t:tdepositos) {
-			tcantidad += Integer.parseInt(""+t[2]);
-			tpreparada += Integer.parseInt(""+t[3]);
-			tsaldo += Integer.parseInt(""+t[4]);
-			tentregada += Integer.parseInt(""+t[5]);
-		}
+			ModelAndView mdl = new ModelAndView("reporte.orden_preparada");
 
-		ModelAndView mdl = new ModelAndView("reporte.orden_preparada");
-		mdl.addObject("recepcion_mercaderia", ordenesHash.values());
-		mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-		mdl.addObject("orden", orden);
-		mdl.addObject("ordenobj", ordenes.get(0));
-		mdl.addObject("tipo", tipo);
-		mdl.addObject("autorizar", true);
-		mdl.addObject("nolink", true);
-		mdl.addObject("depositos", depositos);
-		mdl.addObject("tcantidad", tcantidad);
-        mdl.addObject("tpreparada", tpreparada);
-        mdl.addObject("tentregada", tentregada);
-        mdl.addObject("tsaldo", tsaldo);
-        mdl.addObject("tdepositos", tdepositos);
-        mdl.addObject("stdepositos", stdepositos);
+			if(!ControllerUtils.isValidUser(request, uDao))
+				return new ModelAndView("redirect:/rest/auth/login-web");
+			if(!ControllerUtils.isAllowed(request, uDao, 30))
+				return new ModelAndView("wms.sin_permiso");
+			List<String> depositos = new ArrayList<String>();
+
+			List<OrdenEntrega> ordenes  =bDao.getOrdenEntregaP(orden,cliente);
+
+			HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
+			List<Object[]> stdepositos = bDao.getSubtotalesOrdenEntregaP(orden,cliente);
+	        List<Object[]> tdepositos = bDao.getTotalesOrdenEntregaP(orden,cliente);
+	        Integer tcantidad = 0, tpreparada=0, tsaldo=0, tentregada=0;
+			String depo, codigo;
+			for (OrdenEntrega ord:ordenes){
+				if (ord == null) continue;
+				depo = ord.getDeposito();
+				codigo = ord.getCodigo();
+				if(!depositos.contains(depo))
+					depositos.add(depo);
+				if(ordenesHash.containsKey(depo+codigo+ord.getCorrelativo())){
+					OrdenEntrega o = ordenesHash.get(depo+codigo+ord.getCorrelativo());
+					if(ord.getEstante() == null) continue;
+					o.setEstante(o.getEstante() + "\\n" +ord.getEstante());
+	                o.setEstadoMercaderia(o.getEstadoMercaderia() + "\\n" + ord.getEstadoMercaderia());
+	                o.setTipoUbicacion(o.getTipoUbicacion() + "\\n" + ord.getTipoUbicacion());
+	                o.setSaldos(o.getSaldos() + "\\n" + ord.getSaldo().toString());
+					o.setPreparadas(o.getPreparadas() + "\\n"+ord.getCantidadPreparada().toString());
+					o.setEntregadas(o.getEntregadas() + "\\n"+ord.getEntregada().toString());
+	                o.setCodigoBulk(o.getCodigoBulk() + "\\n"+ord.getCodigoBulk());
+					o.setStatusUbicacion(o.getStatusUbicacion() + "\\n"+ord.getStatusUbicacion());
+				}
+				else{
+	                ord.setSaldos(""+ord.getSaldo().toString());
+	                ord.setPreparadas(""+ord.getCantidadPreparada().toString());
+	                ord.setEntregadas(""+ord.getEntregada().toString());
+					ordenesHash.put(depo+codigo+ord.getCorrelativo(), ord);
+				}
+			}
+			for(Object[] t:tdepositos) {
+				tcantidad += Integer.parseInt(""+t[2]);
+				tpreparada += Integer.parseInt(""+t[3]);
+				tsaldo += Integer.parseInt(""+t[4]);
+				tentregada += Integer.parseInt(""+t[5]);
+			}
+			mdl.addObject("recepcion_mercaderia", ordenesHash.values());
+
+			mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
+
+			mdl.addObject("orden", orden);
+
+			mdl.addObject("ordenobj", ordenes.get(0));
+
+			mdl.addObject("tipo", tipo);
+
+			mdl.addObject("autorizar", true);
+
+			mdl.addObject("nolink", true);
+
+			mdl.addObject("depositos", depositos);
+
+			mdl.addObject("tcantidad", tcantidad);
+
+	        mdl.addObject("tpreparada", tpreparada);
+
+	        mdl.addObject("tentregada", tentregada);
+
+	        mdl.addObject("tsaldo", tsaldo);
+
+	        mdl.addObject("tdepositos", tdepositos);
+
+	        mdl.addObject("stdepositos", stdepositos);
+	        
 		return mdl;
 	}
 
