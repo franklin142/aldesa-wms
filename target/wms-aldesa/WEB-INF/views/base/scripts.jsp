@@ -21,6 +21,8 @@
 <script src="/wms-aldesa/static/resources/js/wow.js"></script>
 <!-- All JS plugin Triggers -->
 <script src="/wms-aldesa/static/resources/js/main.js"></script>
+<!-- Moment.js Load -->
+<script src="/wms-aldesa/static/resources/js/moment.js"></script>
 
 
 <script>

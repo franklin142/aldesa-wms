@@ -213,7 +213,7 @@ public class BulkDaoImpl implements BulkDao{
 	@Override	
 	public DetalleBulk updateDetalle(DetalleBulk db) {
 		
-		String sqlString = "CALL PRC_Actualiza_DetBulk(:bulk, :prod, :cliente, :cantidad,:nlote,fechavto) ;";
+		String sqlString = "CALL PRC_Actualiza_DetBulk(:bulk, :prod, :cliente, :cantidad,:nlote);";
 		Query q = em.createNativeQuery(sqlString);
 		
 		q.setParameter("bulk",db.getId().getCodigoBulk())
@@ -221,8 +221,6 @@ public class BulkDaoImpl implements BulkDao{
 			.setParameter("cliente", db.getCliente())
 			.setParameter("cantidad", db.getCantidad())
 			.setParameter("nlote", db.getnLote())
-			.setParameter("fechavto", db.getFechaVto())
-
 			.executeUpdate();
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -263,15 +261,18 @@ public class BulkDaoImpl implements BulkDao{
 		        //return 1;
 	}
 
-	public void updateDetalle(String bulk, String producto, double cantidad, String estado){
+	public void updateDetalle(String bulk, String producto, double cantidad,String estado,String nlote){
 
-		String sqlString = "Update detalle_bulk Set cantidad=:cantidad, estado_merc=:estado_merc "
+		String sqlString = "Update detalle_bulk Set cantidad=:cantidad, estado_merc=:estado_merc"
 					+ "Where codigo_bulk =:bulk "
-					+ "And codigo_producto=:prod ;";
+					+ "And codigo_producto=:prod "
+					+ "And No_Lote=:nlote"
+					+";";
 		 
 		Query query = em.createNativeQuery(sqlString);
 		query.setParameter("cantidad", cantidad)
 			.setParameter("estado_merc", estado)
+			.setParameter("nlote", nlote)
 			.setParameter("bulk", bulk)
 			.setParameter("prod", producto)
 			.executeUpdate();

@@ -401,7 +401,7 @@ public class WebController {
             @RequestParam(required=false, defaultValue="-") String[] flejada,
             @RequestParam(required=false, defaultValue="-") String[] sobrante,
             @RequestParam(required=false, defaultValue="") String[] item,
-            @RequestParam(required=false, defaultValue="-") String[] nlote,
+            @RequestParam(required=false, defaultValue="-") String[] nolote,
             @RequestParam(required=false, defaultValue="null") String[] fechavto,
 
             HttpServletRequest request, HttpServletResponse response)  throws Exception{
@@ -447,21 +447,23 @@ public class WebController {
 		bDao.save(b);
 		if(!nodet)
 			for(int i=0; i< cod.length; i++){
-					bDao.updateDetalle(bulk, cod[i], Double.parseDouble(porbulk[i]), estado[i]);
+				Date fechavtoConverted = new Date();
+				try {
+					fechavtoConverted = (Date) (fechavto[i]!=""?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto[i])):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				bDao.updateDetalle(bulk, cod[i], Double.parseDouble(porbulk[i]), estado[i],nolote[i]);
 				// actualizar sobrantes  b.getCliente()
 				if(sobrante[i].equalsIgnoreCase("on")) {
-					Date fechavtoConverted = new Date();
-					try {
-						fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto[i])):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 					if (tipo.equalsIgnoreCase("D")){
 						
-					  bDao.actualizarSobrante(deposito,cod[i] , cod[i], estado[i], item[i],nlote[i],fechavtoConverted);
+					  bDao.actualizarSobrante(deposito,cod[i] , cod[i], estado[i], item[i],nolote[i],fechavtoConverted);
 					}else {					  
-						bDao.actualizarSobrante(deposito,cliente , cod[i], estado[i], item[i],nlote[i],fechavtoConverted);
+						bDao.actualizarSobrante(deposito,cliente , cod[i], estado[i], item[i],nolote[i],fechavtoConverted);
 					}
 				}
 			}
@@ -536,7 +538,7 @@ public class WebController {
 			@RequestParam(required=false, defaultValue="") String[] porbulk,
 			@RequestParam(required=false, defaultValue="") String[] alto,
 			@RequestParam(required=false, defaultValue="") String[] ancho,
-			@RequestParam(required=false, defaultValue="") String[] nlote,
+			@RequestParam(required=false, defaultValue="") String[] nolote,
 			@RequestParam(required=false, defaultValue="") String[] fechavto,
 			@RequestParam(required=false, defaultValue="") String[] profund,
 			@RequestParam(required=false, defaultValue="") String[] peso,
@@ -550,6 +552,8 @@ public class WebController {
 			@RequestParam String tipo,
 			@RequestParam(required=false, defaultValue="-") String consignatario,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+		
 		if(!ControllerUtils.isValidUser(request, uDao))
 			return new ModelAndView("redirect:/rest/auth/login-web");
 		if(!ControllerUtils.isAllowed(request, uDao, 11))
@@ -559,7 +563,6 @@ public class WebController {
 		MercadRecibida dep1 = mercDao.getById(pk);
 		Cliente cliente = bDao.getClienteById(dep1.getCliente());
         List<BulkSugerido> bs = bDao.getSugerencia(deposito);
-        
 		if(_method.equalsIgnoreCase("put")){
 			bDao.verificaBulk(deposito);
 			Bulk b = new Bulk();
@@ -639,6 +642,7 @@ public class WebController {
 			for(i=0;i<porbulk.length;i++){
 				if(porbulk[i].trim().length()==0) continue;
                 if(Double.parseDouble(porbulk[i])<=0) continue;
+
                 Date fechavtoConverted = new Date();
 				try {
 					fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("yyyy/MM/dd")).parse(fechavto[i])):(new SimpleDateFormat("yyyy/MM/dd")).format(new Date()));
@@ -646,19 +650,26 @@ public class WebController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 				if (tipo.equalsIgnoreCase("D")){
 					if (consignatario.equalsIgnoreCase(codMerc[i])){
-						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nlote[i],fechavtoConverted);
+						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavtoConverted);
+
 					}
 				}else {					  
-					bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nlote[i],fechavtoConverted);
+
+					bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavtoConverted);
+
 				}
 				if(sobrante[i].equalsIgnoreCase("on")){
 					
 				   if (tipo.equalsIgnoreCase("D")){
-					    bDao.actualizarSobrante(deposito, codMerc[i], codMerc[i], estado[i],item[i],nlote[i],fechavtoConverted);
+					    bDao.actualizarSobrante(deposito, codMerc[i], codMerc[i], estado[i],item[i],nolote[i],fechavtoConverted);
+
 				   }else {
-						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nlote[i],fechavtoConverted);
+
+						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nolote[i],fechavtoConverted);
+
 				   }
 				}
 				p = new MercPendRecibir();
@@ -668,7 +679,6 @@ public class WebController {
 				p.setDescripcion(descripcion[i]);
 				p.setSaldo(Double.parseDouble(saldo[i])-Double.parseDouble(porbulk[i]));
 				p.setUnidad_Medida(medida[i]);
-			
 				pendientes.add(p);
 			   if (tipo.equalsIgnoreCase("D")){
 				   numreg=numreg+1;

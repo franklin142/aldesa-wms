@@ -6,7 +6,7 @@
 <!-- Hero Area Section -->
 <script>
 $(document).ready(function(){
-    $( "#fechavto" ).datepicker({
+    $( ".class_fechavto" ).datepicker({
 	    appendText: "",
 	    showAnim: "fadeIn",
 	    button:false,
@@ -140,17 +140,15 @@ $(document).ready(function(){
                                 </select>
                             </td>
                             <td>
-								<input type="text" min="1" name="nolote" id="nolote" class="form-control det_bulk_nlote"
-								<c:if test="${ finalizado }">disabled</c:if>
-								<c:if test="${ bulk==null }">disabled</c:if>
+								<input type="text" min="1" name="nolote" id="nolote" class="form-control det_bulk_nolote"
+								disabled
 								value="${ m.getnLote()}"
 								/>
 							</td>
 							<td>
 							
-								<input type="text" name="fechavto" id="fechavto" class="form-control det_bulk_fechavto" 
-								<c:if test="${ finalizado }">disabled</c:if>
-								<c:if test="${ bulk==null }">disabled</c:if>
+								<input type="text" name="fechavto" id="fechavto" class="form-control class_fechavto" 
+								disabled
 								value="${ m.getFechaVto()}"
 								
 								/>
@@ -236,7 +234,6 @@ $(document).ready(function(){
                 					var valInputNLote = tabla.childNodes[1].children[1].cells[4].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[1].cells[4].children[0].disabled){
                     					var valInputFechavto = tabla.childNodes[1].children[1].cells[5].children[0].value;	
-
                 						if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+

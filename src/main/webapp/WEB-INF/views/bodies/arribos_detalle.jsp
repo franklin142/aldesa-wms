@@ -315,8 +315,7 @@
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
                     					var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
-
-                						if(valInputFechavto.length==0){
+                    					if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
     												tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
