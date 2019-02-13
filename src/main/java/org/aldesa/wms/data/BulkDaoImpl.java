@@ -213,7 +213,7 @@ public class BulkDaoImpl implements BulkDao{
 	@Override	
 	public DetalleBulk updateDetalle(DetalleBulk db) {
 		
-		String sqlString = "CALL PRC_Actualiza_DetBulk(:bulk, :prod, :cliente, :cantidad,:nlote);";
+		String sqlString = "CALL PRC_Actualiza_DetBulk(:bulk, :prod, :cliente, :cantidad, :nlote);";
 		Query q = em.createNativeQuery(sqlString);
 		
 		q.setParameter("bulk",db.getId().getCodigoBulk())
@@ -263,10 +263,10 @@ public class BulkDaoImpl implements BulkDao{
 
 	public void updateDetalle(String bulk, String producto, double cantidad,String estado,String nlote){
 
-		String sqlString = "Update detalle_bulk Set cantidad=:cantidad, estado_merc=:estado_merc"
+		String sqlString = "Update detalle_bulk Set cantidad=:cantidad, estado_merc=:estado_merc "
 					+ "Where codigo_bulk =:bulk "
 					+ "And codigo_producto=:prod "
-					+ "And No_Lote=:nlote"
+					+ "And No_Lote=:nlote "
 					+";";
 		 
 		Query query = em.createNativeQuery(sqlString);

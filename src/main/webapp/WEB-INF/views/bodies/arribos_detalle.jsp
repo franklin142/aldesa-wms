@@ -11,7 +11,7 @@
 	    	showAnim: "fadeIn",
 	    	button:false,
 	    	buttonImage:false,
-	   		dateFormat: 'yyyy/MM/dd'
+	   		dateFormat: 'dd/MM/yyyy'
 		});
 	
 	});

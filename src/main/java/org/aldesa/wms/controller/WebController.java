@@ -401,10 +401,11 @@ public class WebController {
             @RequestParam(required=false, defaultValue="-") String[] flejada,
             @RequestParam(required=false, defaultValue="-") String[] sobrante,
             @RequestParam(required=false, defaultValue="") String[] item,
-            @RequestParam(required=false, defaultValue="-") String[] nolote,
-            @RequestParam(required=false, defaultValue="null") String[] fechavto,
+            @RequestParam(required=false, defaultValue="") String[] nolote,
+            @RequestParam(required=false, defaultValue="") String[] fechavto,
 
             HttpServletRequest request, HttpServletResponse response)  throws Exception{
+    	
 		if(!ControllerUtils.isValidUser(request, uDao))
 			return new ModelAndView("redirect:/rest/auth/login-web");
 		if(!ControllerUtils.isAllowed(request, uDao, 9))
@@ -445,22 +446,15 @@ public class WebController {
 		}
 		b.setCodigoBulk(bulk);
 		bDao.save(b);
-		if(!nodet)
+		if(!nodet) {
 			for(int i=0; i< cod.length; i++){
 				Date fechavtoConverted = new Date();
-				try {
-					fechavtoConverted = (Date) (fechavto[i]!=""?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto[i])):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
 				bDao.updateDetalle(bulk, cod[i], Double.parseDouble(porbulk[i]), estado[i],nolote[i]);
 				// actualizar sobrantes  b.getCliente()
 				if(sobrante[i].equalsIgnoreCase("on")) {
 					
 					if (tipo.equalsIgnoreCase("D")){
-						
 					  bDao.actualizarSobrante(deposito,cod[i] , cod[i], estado[i], item[i],nolote[i],fechavtoConverted);
 					}else {					  
 						bDao.actualizarSobrante(deposito,cliente , cod[i], estado[i], item[i],nolote[i],fechavtoConverted);
@@ -470,6 +464,7 @@ public class WebController {
     	ModelAndView mv = new ModelAndView("edit_bulk");
         b = bDao.getById(bulk);
         List<DetalleBulk> db = bDao.getDetalleByBulk(bulk);
+		}
 		return new ModelAndView("redirect:/web/arribos_detalle_ver?cliente="+cliente+"&deposito="+deposito+"&tipo="+tipo);
     }
 
@@ -645,7 +640,7 @@ public class WebController {
 
                 Date fechavtoConverted = new Date();
 				try {
-					fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("yyyy/MM/dd")).parse(fechavto[i])):(new SimpleDateFormat("yyyy/MM/dd")).format(new Date()));
+					fechavtoConverted = (Date) (fechavto[i]!=""?((new SimpleDateFormat("yyyy/MM/dd")).parse(fechavto[i])):(new SimpleDateFormat("yyyy/MM/dd")).format(new Date()));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
