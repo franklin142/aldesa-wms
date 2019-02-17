@@ -188,7 +188,7 @@
                                                                                                         {text: '${ m.getSaldo() }', alignment: 'right'},
                                                                                                         {text: '${ m.getUnidadMedida() }',alignment: 'center',fontSize: 8},
 																										{text: '${ m.getnLote() }',alignment: 'center'},
-																										{text: '${ m.getFechaVto() }',alignment: 'center'},
+																										{text: moment('${ m.getFechaVto() }').format("DD/MM/YYYY"),alignment: 'center'},
                                                                                                         ],</c:forEach>
                                                                                                     ]
                                                                                                 }

@@ -42,6 +42,8 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="/wms-aldesa/static/resources/js/vfs_fonts.js"></script>
     <script src="/wms-aldesa/static/resources/js/aldesa-logo.js"></script>
     <script src="/wms-aldesa/static/resources/js/JsBarcode2.js"> </script>
+    <script src="/wms-aldesa/static/resources/js/moment.js"> </script>
+    
 </head>
 
 <body tabindex="1" class="loadingInProgress">
