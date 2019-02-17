@@ -11,7 +11,7 @@ $(document).ready(function(){
 	    showAnim: "fadeIn",
 	    button:false,
 	    buttonImage:false,
-	    dateFormat: 'yyyy/MM/dd'
+	    dateFormat: 'dd/MM/yyyy'
 	});
 	
 });
@@ -140,14 +140,16 @@ $(document).ready(function(){
                                 </select>
                             </td>
                             <td>
-								<input type="text" min="1" name="nolote" id="nolote" class="form-control det_bulk_nolote"
+                            	<input type="hidden" name="nolote" id="nolote" value="${ m.getnLote()}"/>
+								<input type="text" class="form-control det_bulk_nolote"
 								disabled
 								value="${ m.getnLote()}"
 								/>
 							</td>
 							<td>
+							    <input type="hidden" name="fechavto" id="fechavto" value="${ m.getFechaVto()}"/>
 							
-								<input type="text" name="fechavto" id="fechavto" class="form-control class_fechavto" 
+								<input type="text" class="form-control class_fechavto" 
 								disabled
 								value="${ m.getFechaVto()}"
 								
@@ -225,33 +227,6 @@ $(document).ready(function(){
                                 alert('Debe establecer un valor para el peso mayor que cero');
                                 return;
                             }
-                            
-                            //Franklin Flores- validacion de campos No_Lote y Fec_Venc_Lote
-                            var validarNLote=true;
-                    		var tabla = document.getElementsByTagName("table")[0];
-                    		for(i=0;i<tabla.childNodes[1].children.length;i++){
-                    			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
-                					var valInputNLote = tabla.childNodes[1].children[1].cells[4].children[0].value;	
-                					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[1].cells[4].children[0].disabled){
-                    					var valInputFechavto = tabla.childNodes[1].children[1].cells[5].children[0].value;	
-                						if(valInputFechavto.length==0){
-                							
-    										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
-    												tabla.childNodes[1].children[1].cells[0].childNodes[0].data+
-    												'\". \nPero el valor de fecha de vencimiento esta vacío');
-    										return;
-                						}
-										if((new Date(valInputFechavto))<=new Date()){
-                							
-    										alert('La fecha de vencimiento de lote no puede ser menor o igual a la fecha de hoy.');
-    										return;
-                						}
-                					}
-                    			}
-
-                    		}
-							//Fin de la validacion Franklin Flores.
-							
                             $("#deposito-hidden").val("${ deposito }".split(',')[0]);
                             $("#tipo-hidden").val("${ tipo }".split(',')[0]);
                             $('#guardar-detalles').submit();

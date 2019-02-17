@@ -1196,7 +1196,6 @@ public class WebController {
 		mdl.addObject("subtotpre", subtotalesprep);
         return mdl;
     }
-
 	//REPORTE ORDEN DE PREPARACION
 	@RequestMapping(value = "preparacion/reporte/{orden}/{tipo}/{cliente}/", method = RequestMethod.GET)
 	public ModelAndView despacho_orden_informe2(
@@ -1208,6 +1207,7 @@ public class WebController {
 			return new ModelAndView("redirect:/rest/auth/login-web");
 		if(!ControllerUtils.isAllowed(request, uDao, 29))
 			return new ModelAndView("wms.sin_permiso");
+		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");
 		List<String> depositos = new ArrayList<String>();
 		List<OrdenEntrega> ordenes  =bDao.getOrdenEntrega(orden,cliente);
 		HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
@@ -1243,8 +1243,6 @@ public class WebController {
 			tpreparada += Integer.parseInt(""+t[3]);
 			tsaldo += Integer.parseInt(""+t[4]);
 		}
-
-		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");
 		mdl.addObject("recepcion_mercaderia", ordenesHash.values());
 		mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
 		mdl.addObject("orden", orden);
@@ -1254,11 +1252,12 @@ public class WebController {
 		mdl.addObject("nolink", true);
 		mdl.addObject("depositos", depositos);
 		mdl.addObject("tcantidad", tcantidad);
-        mdl.addObject("tpreparada", tpreparada);
-        mdl.addObject("tsaldo", tsaldo);
-        mdl.addObject("tdepositos", tdepositos);
-        mdl.addObject("stdepositos", stdepositos);
-		return mdl;
+		mdl.addObject("tpreparada", tpreparada);
+		mdl.addObject("tsaldo", tsaldo);
+		mdl.addObject("tdepositos", tdepositos);
+		mdl.addObject("stdepositos", stdepositos);
+        return mdl;
+		
 	}
 
 	//REPORTE ORDEN PREPARADA
@@ -1315,33 +1314,19 @@ public class WebController {
 				tentregada += Integer.parseInt(""+t[5]);
 			}
 			mdl.addObject("recepcion_mercaderia", ordenesHash.values());
-
 			mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-
 			mdl.addObject("orden", orden);
-
 			mdl.addObject("ordenobj", ordenes.get(0));
-
 			mdl.addObject("tipo", tipo);
-
 			mdl.addObject("autorizar", true);
-
 			mdl.addObject("nolink", true);
-
 			mdl.addObject("depositos", depositos);
-
 			mdl.addObject("tcantidad", tcantidad);
-
 	        mdl.addObject("tpreparada", tpreparada);
-
 	        mdl.addObject("tentregada", tentregada);
-
 	        mdl.addObject("tsaldo", tsaldo);
-
 	        mdl.addObject("tdepositos", tdepositos);
-
-	        mdl.addObject("stdepositos", stdepositos);
-	        
+	        mdl.addObject("stdepositos", stdepositos);	        
 		return mdl;
 	}
 

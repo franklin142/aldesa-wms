@@ -73,7 +73,7 @@
                             'BULK', 'UBICACION', 'CODIGO', 'NOMBRE DEL PRODUCTO', 'CANTIDAD', 'UNIDAD', 'ESTADO',
                             'ANCHO', 'ALTO','PROFUN.','AREA','VOL.','PESO',
                             'BULK FLEJ?'],<c:forEach var="c" items="${ codigos }" varStatus="loop"><c:forEach var="b" items="${ bulks }" varStatus="loop"><c:if test="${c.equalsIgnoreCase(b.getCodigoProducto())}">[
-                            '${b.getCodigo()}', '${b.getUbicacion()}', '${b.getCodigoProducto()}', '${b.getNombreProducto()}',
+                            '${b.getCodigo()}', '${b.getUbicacion()}', '${b.getCodigoProducto()}', '${b.getNombreProducto()}'+('${b.getnLote()}'!=''?("\n"+'Lot. '+'${b.getnLote()}'+' . Vto. '+'${b.getFechaVto()}'):''),
                             '${b.getCantidad()}', '${b.getUnidadMedida()}', '${b.getEstadoMerc()}',
                             '${b.getAncho()}', '${b.getAlto()}','${b.getProfundidad()}','${b.getArea()}','${b.getVolumen()}',
                             '${b.getPeso()}', '${b.getTarimaFlejada()}'

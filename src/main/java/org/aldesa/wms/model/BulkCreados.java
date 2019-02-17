@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by lennin on 22/12/2015.
@@ -60,6 +61,12 @@ public class BulkCreados {
     private String bodega;
     @Column
     private String nombre_bodega;
+    
+	@Column(name="No_Lote")
+	private String nLote;
+	
+	@Column(name="Fec_Venc_Lote")
+	private Date fechaVto;
 
     public String getBodega() {
         return bodega;
@@ -229,4 +236,20 @@ public class BulkCreados {
     public void setTipoUbicacion(String tipoUbicacion) {
         this.tipoUbicacion = tipoUbicacion;
     }
+
+	public String getnLote() {
+		return nLote;
+	}
+
+	public void setnLote(String nLote) {
+		this.nLote = nLote;
+	}
+
+	public Date getFechaVto() {
+		return fechaVto;
+	}
+
+	public void setFechaVto(Date fechaVto) {
+		this.fechaVto = fechaVto;
+	}
 }

@@ -1,5 +1,7 @@
 package org.aldesa.wms.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -48,6 +50,11 @@ public class OrdenEntrega {
     private String cantidadesPreparadas=null;
     @Transient
     private String cantidadesEntregadas=null;
+	@Column(name="No_Lote")
+	private String nLote;
+	
+	@Column(name="Fec_Venc_Lote")
+	private Date fechaVto;
 
     public String getEstadoMercaderiaSolicitada() {
         return estadoMercaderiaSolicitada;
@@ -191,5 +198,21 @@ public class OrdenEntrega {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+	public String getnLote() {
+		return nLote;
+	}
+
+	public void setnLote(String nLote) {
+		this.nLote = nLote;
+	}
+
+	public Date getFechaVto() {
+		return fechaVto;
+	}
+
+	public void setFechaVto(Date fechaVto) {
+		this.fechaVto = fechaVto;
+	}
 
 }

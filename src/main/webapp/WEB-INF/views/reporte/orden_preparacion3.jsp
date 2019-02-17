@@ -73,7 +73,7 @@
                         ['Codigo','Descripcion', 'Estado Merc. Solicitada',
                             'Cantidad solicitada','Cantidad Preparada','Saldo',
                             'Ubicacion','Bulk',  'Estado'],<c:forEach var="merc" items="${recepcion_mercaderia}" varStatus="loop"> <c:if test="${merc.getDeposito().equalsIgnoreCase(d)}" >
-                        ['${merc.getCodigo()}', '${merc.getDescripcion()}', '${merc.getEstadoMercaderiaSolicitada()}',
+                        ['${merc.getCodigo()}', '${merc.getDescripcion()}'+('${merc.getnLote()}'=='0'?'':"\n"+'Lot. ${merc.getnLote()} - Vto. ${merc.getFechaVto()}'), '${merc.getEstadoMercaderiaSolicitada()}',
                             '${merc.getCantidad()}', '${merc.getPreparadas()}', '${merc.getSaldos()}',
                             '${merc.getEstante() }', '${merc.getCodigoBulk()}', '${merc.getEstadoMercaderia()}'
                         ]<c:forEach var="st" items="${stdepositos}" varStatus="loop"> <c:if test="${st[1].toString().equalsIgnoreCase(d) and st[2].toString().equalsIgnoreCase(merc.getCorrelativo())}" >, ['Sub Total', ' ', ' ',
