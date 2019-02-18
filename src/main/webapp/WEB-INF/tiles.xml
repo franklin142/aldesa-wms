@@ -196,7 +196,10 @@
         <put-attribute name="title" value="INFORME DE SALIDA NO. " />
         <put-attribute name="body" value="/WEB-INF/views/reporte/salida_desconsolidado.jsp" />
     </definition>
-
+    <definition name="reporte.salida_simplel" extends="wms.report.base">
+        <put-attribute name="title" value="INFORME DE SALIDA NO. " />
+        <put-attribute name="body" value="/WEB-INF/views/reporte/salida_simplel.jsp" />
+    </definition>
     <definition name="reporte.salida_simple2" extends="wms.report.base">
         <put-attribute name="title" value="INFORME DE SALIDA NO. " />
         <put-attribute name="body" value="/WEB-INF/views/reporte/salida_simple2.jsp" />

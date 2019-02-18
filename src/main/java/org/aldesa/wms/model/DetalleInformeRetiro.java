@@ -1,6 +1,8 @@
 package org.aldesa.wms.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -47,6 +49,12 @@ public class DetalleInformeRetiro implements Serializable {
 
 	@Column(name="Entregada")
 	private int entregada;
+	
+	@Column(name="No_Lote")
+	private String nLote;
+	
+	@Column(name="Fec_Venc_Lote")
+	private Date fechaVto;
 
 	public DetalleInformeRetiro() {
 	}
@@ -135,6 +143,22 @@ public class DetalleInformeRetiro implements Serializable {
 
 	public void setEntregada(int entregada) {
 		this.entregada = entregada;
+	}
+
+	public String getnLote() {
+		return nLote;
+	}
+
+	public void setnLote(String nLote) {
+		this.nLote = nLote;
+	}
+
+	public Date getFechaVto() {
+		return fechaVto;
+	}
+
+	public void setFechaVto(Date fechaVto) {
+		this.fechaVto = fechaVto;
 	}
 
 }
