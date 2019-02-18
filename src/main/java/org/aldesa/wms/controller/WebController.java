@@ -236,21 +236,30 @@ public class WebController {
 			@PathVariable String retiro,
 			@PathVariable String cliente,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		
 		if(!ControllerUtils.isValidUser(request, uDao))
 			return new ModelAndView("redirect:/rest/auth/login-web");
 		if(!ControllerUtils.isAllowed(request, uDao, 6))
 			return new ModelAndView("wms.sin_permiso");
+		
 		InformeRetiro inf = bDao.getInformeById(retiro, cliente);
 		List<DetalleInformeRetiro> retiros = bDao.getDetalleRetiro(retiro, cliente);
 		ModelAndView mdl = new ModelAndView("reporte.salida_simple2");
+		
+		if(bDao.verificacionInformeR(retiro).equals("L")) {
+			mdl = new ModelAndView("reporte.salida_simplel");
+		}
+		
         mdl.addObject("tipo", inf.getTipoDeposito());
 		mdl.addObject("enc", inf);
+		
         int tbultos=0, tordenada=0, tentregada=0;
         for(DetalleInformeRetiro dir:retiros){
             tbultos = tbultos + dir.getBultos();
             tentregada = tentregada + dir.getEntregada();
             tordenada = tordenada + dir.getCantidad();
         }
+        
         Calendar c = Calendar.getInstance();
         mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy")).format(new Date()));
         mdl.addObject("hora", (new SimpleDateFormat("HH:mm:ss")).format(c.getTime()));
@@ -259,6 +268,7 @@ public class WebController {
         mdl.addObject("tbultos", tbultos);
         mdl.addObject("tordenada", tordenada);
         mdl.addObject("tdiferencia", tentregada);
+        
 		return mdl;
 	}
 

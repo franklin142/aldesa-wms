@@ -1103,6 +1103,14 @@ public class BulkDaoImpl implements BulkDao{
 		String result = (String) query.getSingleResult();
 		return result;
 	}
+	public String verificacionInformeR(String orden) {
+		String sqlString="SELECT verificacionInformeR(:orden)";	
+		Query query = em.createNativeQuery(sqlString);
+		query.setParameter("orden", orden);
+		String result = (String) query.getSingleResult();
+		return result;
+	}
 
+	
 }
 
