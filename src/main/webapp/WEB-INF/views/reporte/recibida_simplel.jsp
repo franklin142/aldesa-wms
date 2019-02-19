@@ -202,7 +202,7 @@
                                                                                                         		{text: '${ m.getRecibida() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getSaldo() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getUnidadMedida() }',alignment: 'center',fontSize: 7},
-																												''
+                                                                                                        		{text: '${ m.getEstado() }',alignment: 'center',fontSize: 7},
                                                                                                         	 ],
                                                                                                            </c:forEach>
                                                                                                     ]

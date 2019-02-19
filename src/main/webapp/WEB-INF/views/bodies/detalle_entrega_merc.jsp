@@ -68,11 +68,14 @@
 					<th>Descripcion</th>
 					<th>Unidad de medida</th>
 					<th width="120px">Estado mercaderia solicitada</th>
-					<th>Cantidad preparada</th>
+					<th>Cantidad preparadas</th>
 					<th>Cantidad entregada en salidas ant.</th>
-					<th>Cantidad Entregada</th>
+					<th>Cantidad Entregadas</th>
 					<th>Pendiente</th>
 					<th width="170px">Bulk</th>
+					<th width="170px">Lote</th>
+					<th width="170px">Fecha de vencimiento</th>
+					
 				</tr>
 				<c:if test="${ pendiente }">			 
 				<c:forEach var="merc" items="${recepcion_mercaderia}" varStatus="loop">
@@ -97,6 +100,13 @@
 					<td>${merc.getBulk()}<input id="_${loop.index}-bulk" type="hidden" name="bulk" value="${merc.getBulk()}"/>
 						<input type="hidden" id="_${loop.index}-deposito" name="deposito" value="${merc.getDeposito()}"/>
 						<input type="hidden" name="nSalida"  id="_${loop.index}-nsalida" value="${merc.getnSalida()}"/>
+					</td>
+					<td>${merc.getnLote()}<input id="nolote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
+					
+					</td>
+					<td>${merc.getFechaVto()}
+					<input id="fechavto" type="hidden" name="fechavto" value="${merc.getFechaVto()}"/>
+						
 					</td>
 				</tr> 
 			</c:forEach>

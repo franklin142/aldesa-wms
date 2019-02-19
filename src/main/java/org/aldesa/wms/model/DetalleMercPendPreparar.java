@@ -1,6 +1,8 @@
 package org.aldesa.wms.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -65,6 +67,12 @@ public class DetalleMercPendPreparar implements Serializable {
 
 	@Column(name="Ubicacion", nullable=false)
 	private String ubicacion;
+	
+	@Column(name="No_Lote")
+	private String nLote;
+	
+	@Column(name="Fec_Venc_Lote")
+	private Date fechaVto;
 	
 	public DetalleMercPendPreparar() {
 	}
@@ -204,5 +212,25 @@ public class DetalleMercPendPreparar implements Serializable {
 
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
+	}
+
+
+	public String getnLote() {
+		return nLote;
+	}
+
+
+	public void setnLote(String nLote) {
+		this.nLote = nLote;
+	}
+
+
+	public Date getFechaVto() {
+		return fechaVto;
+	}
+
+
+	public void setFechaVto(Date fechaVto) {
+		this.fechaVto = fechaVto;
 	}
 }
