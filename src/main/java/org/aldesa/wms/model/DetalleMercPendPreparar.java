@@ -71,8 +71,6 @@ public class DetalleMercPendPreparar implements Serializable {
 	@Column(name="No_Lote")
 	private String nLote;
 	
-	@Column(name="Fec_Venc_Lote")
-	private Date fechaVto;
 	
 	public DetalleMercPendPreparar() {
 	}
@@ -224,13 +222,4 @@ public class DetalleMercPendPreparar implements Serializable {
 		this.nLote = nLote;
 	}
 
-
-	public Date getFechaVto() {
-		return fechaVto;
-	}
-
-
-	public void setFechaVto(Date fechaVto) {
-		this.fechaVto = fechaVto;
-	}
 }

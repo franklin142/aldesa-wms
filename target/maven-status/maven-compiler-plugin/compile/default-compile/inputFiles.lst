@@ -16,8 +16,8 @@
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/data/UsuarioDao.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Cliente.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/OrdenReingreso.java
-/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercPendRecibir.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercadRecibidaPK.java
+/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercPendRecibir.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Deposito.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/GrupoOpcion.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Permiso.java

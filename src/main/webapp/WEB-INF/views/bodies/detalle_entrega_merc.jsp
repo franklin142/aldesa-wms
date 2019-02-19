@@ -73,8 +73,7 @@
 					<th>Cantidad Entregadas</th>
 					<th>Pendiente</th>
 					<th width="170px">Bulk</th>
-					<th width="170px">Lote</th>
-					<th width="170px">Fecha de vencimiento</th>
+					<th>Lote</th>
 					
 				</tr>
 				<c:if test="${ pendiente }">			 
@@ -101,12 +100,8 @@
 						<input type="hidden" id="_${loop.index}-deposito" name="deposito" value="${merc.getDeposito()}"/>
 						<input type="hidden" name="nSalida"  id="_${loop.index}-nsalida" value="${merc.getnSalida()}"/>
 					</td>
-					<td>${merc.getnLote()}<input id="nolote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
-					
-					</td>
-					<td>${merc.getFechaVto()}
-					<input id="fechavto" type="hidden" name="fechavto" value="${merc.getFechaVto()}"/>
-						
+					<td><input id="nolote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
+						<input id="lote" type="text" name="lote" value="${merc.getnLote()}" disabled/>
 					</td>
 				</tr> 
 			</c:forEach>
