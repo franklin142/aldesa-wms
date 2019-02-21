@@ -55,6 +55,9 @@ public class OrdenEntrega {
 	
 	@Column(name="Fec_Venc_Lote")
 	private Date fechaVto;
+    @Transient
+	private String fechaVtoString;
+
 
     public String getEstadoMercaderiaSolicitada() {
         return estadoMercaderiaSolicitada;
@@ -213,6 +216,14 @@ public class OrdenEntrega {
 
 	public void setFechaVto(Date fechaVto) {
 		this.fechaVto = fechaVto;
+	}
+
+	public String getFechaVtoString() {
+		return fechaVtoString;
+	}
+
+	public void setFechaVtoString(String fechaVtoString) {
+		this.fechaVtoString = fechaVtoString;
 	}
 
 }

@@ -101,7 +101,7 @@
 						<input type="hidden" name="nSalida"  id="_${loop.index}-nsalida" value="${merc.getnSalida()}"/>
 					</td>
 					<td><input id="nolote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
-						<input id="lote" type="text" name="lote" value="${merc.getnLote()}" disabled/>
+						${merc.getnLote()}
 					</td>
 				</tr> 
 			</c:forEach>

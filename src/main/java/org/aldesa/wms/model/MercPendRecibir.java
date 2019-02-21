@@ -1,6 +1,8 @@
 package org.aldesa.wms.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -39,6 +41,15 @@ public class MercPendRecibir implements Serializable {
     @Column(name = "correlativo")
     private int item;
     
+	@Column(name="No_Lote")
+	private String nLote;
+	
+	@Column(name="Fec_Venc_Lote")
+	private Date fechaVto;
+    
+	@Transient
+	private String fechaVtoString;
+
 	public int getItem() {
 		return item;
 	}
@@ -104,6 +115,30 @@ public class MercPendRecibir implements Serializable {
 
 	public void setUnidad_Medida(String unidad_Medida) {
 		this.unidad_Medida = unidad_Medida;
+	}
+
+	public String getnLote() {
+		return nLote;
+	}
+
+	public void setnLote(String nLote) {
+		this.nLote = nLote;
+	}
+
+	public Date getFechaVto() {
+		return fechaVto;
+	}
+
+	public void setFechaVto(Date fechaVto) {
+		this.fechaVto = fechaVto;
+	}
+
+	public String getFechaVtoString() {
+		return fechaVtoString;
+	}
+
+	public void setFechaVtoString(String fechaVtoString) {
+		this.fechaVtoString = fechaVtoString;
 	}
 
 }

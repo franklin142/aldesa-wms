@@ -285,8 +285,7 @@ public class UbicacionController {
 
             HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-    	Date fechavtoConverted=(Date) (fechavto!=null?Date.parse(fechavto):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-        Integer va = detDao.funCantidad(bulk, producto, cliente, cantidad, orden,nlote,fechavtoConverted);
+        Integer va = detDao.funCantidad(bulk, producto, cliente, cantidad, orden,nlote,fechavto);
         response.getWriter().write("{cantidad:1}");
     }
 
@@ -316,14 +315,7 @@ public class UbicacionController {
             		throws IOException {
         
 		String usr = ControllerUtils.getUsuario(request,"0");
-    	Date fechavtoConverted = new Date();
-		try {
-			fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto)):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		List<Object[]> vResultado=detDao.fun_reagrupacion(bulk, producto, cantidad, bulkd,usr,nlote,fechavtoConverted);
+		List<Object[]> vResultado=detDao.fun_reagrupacion(bulk, producto, cantidad, bulkd,usr,nlote,fechavto);
         response.getWriter().write("{ejecutado:"+vResultado.get(0)+"}");
 	}
 }

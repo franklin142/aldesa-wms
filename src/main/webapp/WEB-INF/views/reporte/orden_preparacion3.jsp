@@ -11,7 +11,6 @@
         backgroundColor:"#fff",
         lineColor:"#000"
     };
-
     var usuario = getCookie('user');
     if(usuario==null) document.location.href ='/wms-aldesa/rest/auth/login-web';
     if (usuario===null) usuario=' ';
@@ -20,14 +19,11 @@
     var _right = 25;
     var _top = 95;
     var _bottom = 20;
-
     var dd = {
         // a string or { width: number, height: number }
         pageSize: 'LETTER',
-
         // by default we use portrait, you can change it to landscape if you wish
         pageOrientation: 'landscape',
-
         // [left, top, right, bottom] or [horizontal, vertical] or just a number for equal margins
         pageMargins: [_left, _top, _right, _bottom],
         fontSize: 9,
@@ -73,7 +69,7 @@
                         ['Codigo','Descripcion', 'Estado Merc. Solicitada',
                             'Cantidad solicitada','Cantidad Preparada','Saldo',
                             'Ubicacion','Bulk',  'Estado'],<c:forEach var="merc" items="${recepcion_mercaderia}" varStatus="loop"> <c:if test="${merc.getDeposito().equalsIgnoreCase(d)}" >
-                        ['${merc.getCodigo()}', '${merc.getDescripcion()}'+('${merc.getnLote()}'=='0'?'':"\n"+'Lot. ${merc.getnLote()} - Vto. '+moment('${merc.getFechaVto()}').format("DD/MM/YYYY")), '${merc.getEstadoMercaderiaSolicitada()}',
+                        ['${merc.getCodigo()}', '${merc.getDescripcion()}', '${merc.getEstadoMercaderiaSolicitada()}',
                             '${merc.getCantidad()}', '${merc.getPreparadas()}', '${merc.getSaldos()}',
                             '${merc.getEstante() }', '${merc.getCodigoBulk()}', '${merc.getEstadoMercaderia()}'
                         ]<c:forEach var="st" items="${stdepositos}" varStatus="loop"> <c:if test="${st[1].toString().equalsIgnoreCase(d) and st[2].toString().equalsIgnoreCase(merc.getCorrelativo())}" >, ['Sub Total', ' ', ' ',
@@ -99,6 +95,4 @@
                 }
             ]}
     };
-
 </script>
-

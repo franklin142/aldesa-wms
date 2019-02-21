@@ -155,9 +155,9 @@
                                                                                                 {
                                                                                                     margin: [25, 0, 2, 0],
                                                                                                     columns: [
-                                                                                                        {text: [{text: 'Fecha fin tránsito: ', bold: true}, '${ enc.getFechaTransito() }']},
-                                                                                                        {text: [{text: 'Hora fin tránsito ', bold: true}, '${ enc.getHoraFinalizaTransito() }']}
-
+                                                                                                        {text: [{text: ('${enc.getNombreReporte()}'=='ALMACENAMIENTO SIMPLE')?"\n":'Fecha fin tránsito: ', bold: true},('${enc.getNombreReporte()}'=='ALMACENAMIENTO SIMPLE')?"\n":'${ enc.getFechaTransito() }']},
+                                                                                                        {text: [{text: ('${enc.getNombreReporte()}'=='ALMACENAMIENTO SIMPLE')?"\n":'Hora fin tránsito ', bold: true},('${enc.getNombreReporte()}'=='ALMACENAMIENTO SIMPLE')?"\n": '${ enc.getHoraFinalizaTransito() }']}
+																										
 
                                                                                                     ]
                                                                                                 }

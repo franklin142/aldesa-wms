@@ -858,7 +858,7 @@ public class BulkDaoImpl implements BulkDao{
 		return detalles;
 	}
 	
-    public Integer funCantidad(String bulk, String producto, String cliente, String cantidad, String orden,String nlote,Date fechavto){
+    public Integer funCantidad(String bulk, String producto, String cliente, String cantidad, String orden,String nlote,String fechavto){
         String sqlString = "CALL prc_cantidad(:bulk, :producto, :cliente, :cantidad, :orden,:nlote,:fechavto);";
 
         Query q = em.createNativeQuery(sqlString);
@@ -1012,7 +1012,7 @@ public class BulkDaoImpl implements BulkDao{
 		return totales;
 	}
 		
-	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,Date fechavto){
+	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto){
 	String sqlString = "call PRC_Inserta_DetBulk (:codigoBulk, :codProducto, :cliente, :cantidad, :estado, :item,:nlote,:fechavto) ;";
 	Query q = em.createNativeQuery(sqlString);
 	
@@ -1027,7 +1027,7 @@ public class BulkDaoImpl implements BulkDao{
 		.executeUpdate();
 }
 	
-	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,Date fechavto){
+	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,String fechavto){
 
 		String sqlString = "call PRC_Actualiza_Posee_Sobrante (:deposito, :cliente, :codigo, :estado, :item,:nlote,:fechavto) ;";
 		Query q = em.createNativeQuery(sqlString);
@@ -1081,7 +1081,7 @@ public class BulkDaoImpl implements BulkDao{
 				.executeUpdate();  
 	}
 	
-	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,Date fechavto){
+	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,String fechavto){
 		String sqlString = "Select fun_Reagrupacion(:bulk, :producto, :cantidad, :bulkd, :usr, :nlote, :fechavto);";
 		Query q = em.createNativeQuery(sqlString);
 		       q.setParameter("bulk", bulk)

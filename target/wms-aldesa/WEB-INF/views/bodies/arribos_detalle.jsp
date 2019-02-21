@@ -7,11 +7,7 @@
 <script>
 	$(document).ready(function(){
     	$( ".class_fechavto" ).datepicker({
-	    	appendText: "",
-	    	showAnim: "fadeIn",
-	    	button:false,
-	    	buttonImage:false,
-	   		dateFormat: 'dd/MM/yyyy'
+	   		dateFormat: 'dd/mm/yyyy'
 		});
 	
 	});
@@ -202,18 +198,18 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" min="1" name="nolote" id="nolote" class="form-control"
+								<input type="text" min="1" name="nolote" id="nolote" class="form-control det_bulk_nlote"
 								<c:if test="${ finalizado }">disabled</c:if>
+								<c:if test="${ m.getnLote()!='0'}">value="${m.getnLote()}"</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
-								class="det_bulk_nlote"
+								
 								/>
 							</td>
 							<td>
-							
 								<input type="text" name="fechavto" id="fechavto" class="form-control class_fechavto" 
 								<c:if test="${ finalizado }">disabled</c:if>
+								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>
 								<c:if test="${ bulk==null }">disabled</c:if>
-								class="det_bulk_fechavto"
 								/>
 							</td>
 							
@@ -309,7 +305,7 @@
 							//Franklin Flores valida Campos vacios para No_Lote y Fec_Venc_Lote
 							var validarNLote=true;
                     		var tabla = document.getElementsByTagName("table")[0];
-                    		console.log(tabla);
+                    		
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	

@@ -60,9 +60,7 @@
 	
 	            <div class="form-group col-md-12">
 	                <label>Observaciones</label> 
-	                <textarea id="observacion" name="observacion" class="form-control" style="width: 100%;" rows="5" placeholder="Observaciones...">
-	                	<c:if  test="${ inf2 }">${inf.getObservaciones()}</c:if>
-	                </textarea>
+	                <textarea id="observacion" name="observacion" class="form-control" style="width: 100%;" rows="5" placeholder="Observaciones..."><c:if  test="${ inf2 }">${inf.getObservaciones()}</c:if></textarea>
 	            </div>
 	
 	            <div class="form-group col-md-12">

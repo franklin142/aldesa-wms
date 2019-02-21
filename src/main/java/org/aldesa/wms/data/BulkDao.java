@@ -72,7 +72,7 @@ public interface BulkDao {
 	public List<Object[]> getTotalesOrdenEntrega(Integer orden, String cliente);
 	public List<Object[]> getTotalesOrdenEntregaP(Integer orden, String cliente);
 	public List<Impresor> getImpresores();
-    public Integer funCantidad(String bulk, String producto, String cliente, String cantidad, String orden,String nlote,Date fechavto);
+    public Integer funCantidad(String bulk, String producto, String cliente, String cantidad, String orden,String nlote,String fechavto);
     public void PRC_Actualiza_MR6(String deposito, String fecha);
 	public Parametros getParametrosWMS();
 	public List<CantidadBulkUbicados> getCantidadBulkUbicados();
@@ -84,8 +84,8 @@ public interface BulkDao {
 	public List<Object[]> getSubtotalesBulkCreados(String deposito);
 	public List<Object[]> getTotalesBulkCreados(String deposito);
 	public void finalizaRecepcion(String deposito, String tipo);
-	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,Date fechavto);
-	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,Date fechavto);
+	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto);
+	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,String fechavto);
 	public void prc_entrega(String orden, String salida, String producto, String cantidad,
 								 String estado, String deposito, String cliente,String nlote,Date fechavto);
 	public void prc_entrega_merc(String orden, String salida, String cliente, String fecha,
@@ -98,7 +98,7 @@ public interface BulkDao {
 	public List<OrdenReingreso> getOrdenReingreso(String orden);
 	public List<Object[]> getSubtotalesOrdenReingreso(Integer orden, String cliente);
 	public List<Object[]> getTotalesOrdenReingreso(Integer orden, String cliente);
-	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,Date fechavto);
+	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,String fechavto);
 	public String verificacionInforme(String deposito);
 	public String verificacionInformeR(String orden);
 
