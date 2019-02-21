@@ -1234,10 +1234,7 @@ public class WebController {
 		if(!ControllerUtils.isAllowed(request, uDao, 29))
 			return new ModelAndView("wms.sin_permiso");
 		
-		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");
-		String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
-		mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparacionl"):mdl;
-
+		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");		
 		List<String> depositos = new ArrayList<String>();
 		List<OrdenEntrega> ordenes  =bDao.getOrdenEntrega(orden,cliente);
 		HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
@@ -1245,14 +1242,17 @@ public class WebController {
         List<Object[]> tdepositos = bDao.getTotalesOrdenEntrega(orden,cliente);
 		Integer tcantidad = 0, tpreparada=0, tsaldo=0;
 		String depo, codigo;
+		String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
+		mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparacionl"):mdl;
 		
 		for (OrdenEntrega ord:ordenes){
 			if (ord == null) continue;
-			ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
-			ord.setEstadoMercaderiaSolicitada(ord.getEstadoMercaderiaSolicitada().substring(0,1));
-			SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
-		    ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
-			
+			if(verificacionInformeR.equals("L")) {
+				ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
+				ord.setEstadoMercaderiaSolicitada(ord.getEstadoMercaderiaSolicitada().substring(0,1));
+				SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
+			    ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+			}
 			depo = ord.getDeposito();
 			codigo = ord.getCodigo();
 			if(!depositos.contains(depo))
@@ -1261,9 +1261,10 @@ public class WebController {
 				OrdenEntrega o = ordenesHash.get(depo+codigo+ord.getCorrelativo());
 				if(ord.getEstante() == null) continue;
 				o.setEstante(o.getEstante() + "\\n" +ord.getEstante());
-				o.setnLote(o.getnLote() + "\\n" +ord.getnLote());
-				o.setFechaVtoString(o.getFechaVtoString() + "\\n" +ord.getFechaVtoString());
-
+				if(verificacionInformeR.equals("L")) {
+					o.setnLote(o.getnLote() + "\\n" +ord.getnLote());
+					o.setFechaVtoString(o.getFechaVtoString() + "\\n" +ord.getFechaVtoString());
+				}
                 o.setEstadoMercaderia(o.getEstadoMercaderia() + "\\n" + ord.getEstadoMercaderia());
                 o.setTipoUbicacion(o.getTipoUbicacion() + "\\n" + ord.getTipoUbicacion());
                 o.setSaldos(o.getSaldos() + "\\n" + ord.getSaldo().toString());
@@ -1321,8 +1322,16 @@ public class WebController {
 	        List<Object[]> tdepositos = bDao.getTotalesOrdenEntregaP(orden,cliente);
 	        Integer tcantidad = 0, tpreparada=0, tsaldo=0, tentregada=0;
 			String depo, codigo;
+			
+			String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
+			mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparadal"):mdl;
+			
 			for (OrdenEntrega ord:ordenes){
 				if (ord == null) continue;
+				if(verificacionInformeR.equals("L")) {
+					SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
+				    ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+				}
 				depo = ord.getDeposito();
 				codigo = ord.getCodigo();
 				if(!depositos.contains(depo))
@@ -1331,6 +1340,10 @@ public class WebController {
 					OrdenEntrega o = ordenesHash.get(depo+codigo+ord.getCorrelativo());
 					if(ord.getEstante() == null) continue;
 					o.setEstante(o.getEstante() + "\\n" +ord.getEstante());
+					if(verificacionInformeR.equals("L")) {
+						o.setnLote(o.getnLote() + "\\n" +ord.getnLote());
+						o.setFechaVtoString(o.getFechaVtoString() + "\\n" +ord.getFechaVtoString());
+					}
 	                o.setEstadoMercaderia(o.getEstadoMercaderia() + "\\n" + ord.getEstadoMercaderia());
 	                o.setTipoUbicacion(o.getTipoUbicacion() + "\\n" + ord.getTipoUbicacion());
 	                o.setSaldos(o.getSaldos() + "\\n" + ord.getSaldo().toString());

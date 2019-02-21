@@ -187,7 +187,10 @@
         <put-attribute name="title" value="ORDEN DE PREPARACION NO. " />
         <put-attribute name="body" value="/WEB-INF/views/reporte/orden_preparada.jsp" />
     </definition>
-
+<definition name="reporte.orden_preparadal" extends="wms.report.base">
+        <put-attribute name="title" value="ORDEN DE PREPARACION NO. " />
+        <put-attribute name="body" value="/WEB-INF/views/reporte/orden_preparadal.jsp" />
+    </definition>
     <definition name="reporte.orden_reingreso" extends="wms.report.base">
         <put-attribute name="title" value="ORDEN DE PREPARACION NO. " />
         <put-attribute name="body" value="/WEB-INF/views/reporte/orden_reingreso.jsp" />
