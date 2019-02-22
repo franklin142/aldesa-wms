@@ -601,7 +601,7 @@ public class WebController {
 			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 			
 			for(int i=0;i<pendientes.size();i++) {
-				if(pendientes.get(i).getnLote()!="0") {
+				if(!pendientes.get(i).getnLote().equals("0")) {
 					pendientes.get(i).setFechaVtoString(formatter.format(pendientes.get(i).getFechaVto()));
 				}
 			}

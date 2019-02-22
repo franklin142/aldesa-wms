@@ -317,6 +317,13 @@
     												tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
     												'\". \nPero el valor de fecha de vencimiento esta vacío');
     										return;
+                						}else{
+                							var regex = /([0-9]{2})\/([0-9]{2})\/([0-9]{4})/;
+                							if(!regex.test(valInputFechavto)){
+                							    alert('La fecha del detalle con codigo '+tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
+                							    	  ' tiene un formato incorrecto. Introdusca una fecha con el formato MM/DD/YYYY');
+                							    return;
+                							}
                 						}
 										if((new Date(valInputFechavto))<=new Date()){
                 							
