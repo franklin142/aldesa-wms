@@ -615,10 +615,7 @@ public class WebController {
 			mv.addObject("estados_mercaderia", bodegaDao.getAllEstadosMercancia());
 			return mv;			
 		} else if (_method.equalsIgnoreCase("_put_det_bulk")){
-			String error="iiuuiu";
-			Exception ex = new Exception();
-			try {
-				
+
 			int i=0;
 			Bulk b = new Bulk();
 			if(porbulk.length>0){
@@ -662,13 +659,13 @@ public class WebController {
 				if(porbulk[i].trim().length()==0) continue;
                 if(Double.parseDouble(porbulk[i])<=0) continue;
                 
-                if(fechavto[i]!=null&&fechavto[i]!="") {
+                if(!fechavto[i].equals("")) {
                 	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     				Date fechaVTO = formatter.parse(fechavto[i]);
     				formatter= new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     				fechavto[i]=formatter.format(fechaVTO);
                 }else {
-                	
+
     				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     				fechavto[i]=formatter.format(Calendar.getInstance().getTime());
                 }
@@ -711,10 +708,7 @@ public class WebController {
 			if(pendientes.size()<=0)
 				return new ModelAndView("redirect:/web/arribos_detalle_ver?cliente="+dep1.getCliente()+"&deposito="+deposito+"&tipo="+tipo);
 			return det_arribos("0", deposito, "1", tipo,dep1.getCliente(), "1", "lbl1",numregs,mensaje, request, response);
-			}catch(Exception Exe) {
-				ex = new Exception(error);
-				throw ex;
-			}
+			
 		}
 		return null;
 	}
