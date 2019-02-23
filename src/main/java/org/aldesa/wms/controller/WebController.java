@@ -568,7 +568,9 @@ public class WebController {
 		MercadRecibida dep1 = mercDao.getById(pk);
 		Cliente cliente = bDao.getClienteById(dep1.getCliente());
         List<BulkSugerido> bs = bDao.getSugerencia(deposito);
+        
 		if(_method.equalsIgnoreCase("put")){
+			
 			bDao.verificaBulk(deposito);
 			Bulk b = new Bulk();
 			b.setCodigoBulk("");
@@ -581,8 +583,10 @@ public class WebController {
 			}
 			
 			ModelAndView mv = new ModelAndView("arribos_detalle");
-			
+			Exception ex= new Exception("InicioError");
+			try {
             if(bs.size()>0){
+            	ex= new Exception("llegue al if1");
                 b.setAlto(bs.get(0).getAlto());
                 b.setAncho(bs.get(0).getAncho());
                 b.setPeso(bs.get(0).getPeso());
@@ -593,6 +597,7 @@ public class WebController {
     			mv.addObject("smercc", bs.get(0).getCliente());
             }
             else{
+            	ex= new Exception("llegue al else1");
     			mv.addObject("scantidad", 0);
     			mv.addObject("smerc", null);
             }
@@ -601,8 +606,12 @@ public class WebController {
 			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 			
 			for(int i=0;i<pendientes.size();i++) {
-				if(!pendientes.get(i).getnLote().equals("0")) {
-					pendientes.get(i).setFechaVtoString(formatter.format(pendientes.get(i).getFechaVto()));
+				if((pendientes.get(i).getnLote()==null)==false) {
+	            	//ex= new Exception("llegue al if del for"+pendientes.get(i).getnLote().equals("0"));
+
+					if(pendientes.get(i).getnLote().equals("0")==false) {
+						pendientes.get(i).setFechaVtoString(formatter.format(pendientes.get(i).getFechaVto()));
+					}
 				}
 			}
 			mv.addObject("bulk", b);
@@ -613,6 +622,9 @@ public class WebController {
             mv.addObject("deposito", deposito);
 			mv.addObject("printed", false);
 			mv.addObject("estados_mercaderia", bodegaDao.getAllEstadosMercancia());
+			}catch(Exception exe) {
+				throw ex;
+			}
 			return mv;			
 		} else if (_method.equalsIgnoreCase("_put_det_bulk")){
 
