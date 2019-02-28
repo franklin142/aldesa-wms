@@ -1579,13 +1579,7 @@ public class WebController {
             response.sendError(HttpResponseCodes.SC_FORBIDDEN, "Please login");
             return null; //new ModelAndView("wms.sin_permiso");
         }
-        Date fechavtoConverted = new Date();
-		try {
-			fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto)):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        
         bDao.prc_entrega(orden.toString(), nSalida, codigo_prod, cantidad, estado_prod, bulk, cod_cliente,nlote);
         return null;
     }
