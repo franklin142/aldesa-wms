@@ -1330,7 +1330,9 @@ public class WebController {
 				if (ord == null) continue;
 				if(verificacionInformeR.equals("L")) {
 					SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
-				    ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+				    
+					ord.setFechaVtoString((ord.getFechaVto()==null)?"":formatter.format(ord.getFechaVto()));
+					
 				}
 				depo = ord.getDeposito();
 				codigo = ord.getCodigo();
