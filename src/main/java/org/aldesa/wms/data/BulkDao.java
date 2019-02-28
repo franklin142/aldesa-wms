@@ -87,7 +87,7 @@ public interface BulkDao {
 	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto);
 	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,String fechavto);
 	public void prc_entrega(String orden, String salida, String producto, String cantidad,
-								 String estado, String deposito, String cliente,String nlote,Date fechavto);
+								 String estado, String deposito, String cliente,String nlote);
 	public void prc_entrega_merc(String orden, String salida, String cliente, String fecha,
 								 String cargado1, String forma, String entregado, String fini,
 								 String hini, String ffin, String hfin, String autoret,

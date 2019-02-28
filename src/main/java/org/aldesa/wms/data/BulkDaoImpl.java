@@ -1043,7 +1043,7 @@ public class BulkDaoImpl implements BulkDao{
 	}
 
 	public void prc_entrega(String orden, String salida, String producto, String cantidad,
-								 String estado, String deposito, String cliente, String nlote,Date fechavto){
+								 String estado, String deposito, String cliente, String nlote){
 		String sqlString = "call PRC_Entrega(:orden, :salida, :producto, :cantidad, :estado, :deposito, :cliente,:nlote);";
 		Query q = em.createNativeQuery(sqlString);
 		q.setParameter("orden", orden)

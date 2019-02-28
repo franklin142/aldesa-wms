@@ -1584,7 +1584,7 @@ public class WebController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        bDao.prc_entrega(orden.toString(), nSalida, codigo_prod, cantidad, estado_prod, bulk, cod_cliente,nlote,fechavtoConverted);
+        bDao.prc_entrega(orden.toString(), nSalida, codigo_prod, cantidad, estado_prod, bulk, cod_cliente,nlote);
         return null;
     }
 
@@ -1601,8 +1601,6 @@ public class WebController {
             @RequestParam(required = false, defaultValue = "--") String[] bulk,
             @RequestParam(required = false, defaultValue = "--") String[] nSalida,
             @RequestParam(required = false, defaultValue = "--") String[] nlote,
-            @RequestParam(required = false, defaultValue = "--") String[] fechavto,
-
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (!ControllerUtils.isValidUser(request, uDao)) {
             return new ModelAndView("redirect:/rest/auth/login-web");
@@ -1622,14 +1620,8 @@ public class WebController {
             String esta = estado_prod[i];
             String cbulk = bulk[i];
             if (cant.length() > 0) {
-            	Date fechavtoConverted = new Date();
-        		try {
-        			fechavtoConverted = (Date) (fechavto!=null?((new SimpleDateFormat("dd/MM/yyy")).parse(fechavto[i])):(new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
-        		} catch (ParseException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-                bDao.prc_entrega(orden.toString(), sali, prod, cant, esta, "", clie,nlote[i],fechavtoConverted);
+            	
+                bDao.prc_entrega(orden.toString(), sali, prod, cant, esta, "", clie,nlote[i]);
                 count++;
             }
         }
