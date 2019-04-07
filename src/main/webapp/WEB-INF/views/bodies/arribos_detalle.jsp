@@ -208,7 +208,7 @@
 							<td>
 								<input type="text" name="fechavto" id="fechavto" class="form-control class_fechavto" 
 								<c:if test="${ finalizado }">disabled</c:if>
-								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>
+								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>								
 								<c:if test="${ bulk==null }">disabled</c:if>
 								/>
 							</td>

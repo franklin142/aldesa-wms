@@ -621,10 +621,14 @@ public class WebController {
 
 			return mv;			
 		} else if (_method.equalsIgnoreCase("_put_det_bulk")){
-
+			Exception ex = new Exception();
+			try {
+				
+			
 			int i=0;
 			Bulk b = new Bulk();
 			if(porbulk.length>0){
+				ex= new Exception("Entre al if de porbulk");
 				if(flejada.length>0 && flejada[0].equalsIgnoreCase("on"))
 					b.setTarimaFlejada("S");
 				else
@@ -647,8 +651,10 @@ public class WebController {
 			}
 			b.setCodigoBulk(codbulk);
 			bDao.save(b);
+        	ex= new Exception("se guardo el bDao.save()");
 
             if(fdescarga.equalsIgnoreCase("on")){
+            	ex= new Exception("Entre al if de fdescarga");
                 dep1.setHorafindescarga(Calendar.getInstance().getTime());
                 if (tipo.equalsIgnoreCase("S")) {
                    bDao.updateFechaFinDescarga(dep1);
@@ -656,25 +662,39 @@ public class WebController {
                    bDao.updateFechaFinDescargaD(dep1);	
                 }
             }
+            
 			List<MercPendRecibir> pendientes = new ArrayList<MercPendRecibir>();
 			MercPendRecibir p;
 			String mensaje=" ";
 			String numregs="0";
 			int numreg =0;
+        	ex= new Exception("llega a la entrada del for");
+        	ex= new Exception(""+porbulk.length+" "+fechavto.length+" "+nolote.length);
+        	if(fechavto.length==0) {
+        		fechavto = new String[porbulk.length];
+        		fechavto[0]="";
+        		nolote = new String[porbulk.length];
+        		nolote[0]="0";
+			}
 			for(i=0;i<porbulk.length;i++){
 				if(porbulk[i].trim().length()==0) continue;
                 if(Double.parseDouble(porbulk[i])<=0) continue;
                 
                 if(!fechavto[i].equals("")) {
+    	        	ex= new Exception("llega a if de fecha !vto equals=\"\"");
+
                 	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
     				Date fechaVTO = formatter.parse(fechavto[i]);
     				formatter= new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     				fechavto[i]=formatter.format(fechaVTO);
                 }else {
+    	        	ex= new Exception("llega a if de fecha vto vacia");
 
     				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     				fechavto[i]=formatter.format(Calendar.getInstance().getTime());
                 }
+	        	ex= new Exception("pase los if");
+
 				if (tipo.equalsIgnoreCase("D")){
 					if (consignatario.equalsIgnoreCase(codMerc[i])){
 						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i]);
@@ -692,6 +712,7 @@ public class WebController {
 						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nolote[i],fechavto[i]);
 				   }
 				}
+
 				p = new MercPendRecibir();
 				p.setDeposito(deposito);
 				p.setCodigo_Mercaderia(codMerc[i]);
@@ -714,8 +735,11 @@ public class WebController {
 			if(pendientes.size()<=0)
 				return new ModelAndView("redirect:/web/arribos_detalle_ver?cliente="+dep1.getCliente()+"&deposito="+deposito+"&tipo="+tipo);
 			return det_arribos("0", deposito, "1", tipo,dep1.getCliente(), "1", "lbl1",numregs,mensaje, request, response);
-			
+}catch(Exception e) {
+				throw ex;
+			}
 		}
+			
 		return null;
 	}
 
