@@ -1029,7 +1029,7 @@ public class BulkDaoImpl implements BulkDao{
 	
 	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,String fechavto){
 
-		String sqlString = "call PRC_Actualiza_Posee_Sobrante (:deposito, :cliente, :codigo, :estado, :item,:nlote,:fechavto) ;";
+		String sqlString = "call PRC_Actualiza_Posee_Sobrante (:deposito, :cliente, :codigo, :estado, :item) ;";
 		Query q = em.createNativeQuery(sqlString);
 		
 		q.setParameter("deposito", deposito)
@@ -1037,8 +1037,6 @@ public class BulkDaoImpl implements BulkDao{
 			.setParameter("codigo", codigo)
 			.setParameter("estado", estado)
 			.setParameter("item", item)
-			.setParameter("nlote", nlote)
-			.setParameter("fechavto", fechavto)
 			.executeUpdate();
 	}
 

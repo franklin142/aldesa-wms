@@ -40,15 +40,15 @@
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Impresor.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Grupo.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/OrdenEntregaPK.java
+/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Muelle.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/PosisionPasillo.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/OrdenRetiro.java
-/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Muelle.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MuellePK.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/BulkV.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/DetalleMercPendPreparar.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/BulkPendAutorizar.java
-/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/OpcionMenu.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/PermisosUsuarios.java
+/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/OpcionMenu.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/BulkCreados.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/UsuarioBodega.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/DetalleBulkV.java
@@ -69,7 +69,7 @@
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Parametros.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/DetalleInformeRetiro.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/UbicacionBulk.java
-/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercRecibida.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/PosicionEstante.java
+/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercRecibida.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Bodega.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/data/BulkDao.java
