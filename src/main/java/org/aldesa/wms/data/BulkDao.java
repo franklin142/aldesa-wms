@@ -84,7 +84,7 @@ public interface BulkDao {
 	public List<Object[]> getSubtotalesBulkCreados(String deposito);
 	public List<Object[]> getTotalesBulkCreados(String deposito);
 	public void finalizaRecepcion(String deposito, String tipo);
-	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto);
+	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto,String fechavtoConf);
 	public void actualizarSobrante(String deposito, String cliente, String codigo, String estado, String item,String nlote,String fechavto);
 	public void prc_entrega(String orden, String salida, String producto, String cantidad,
 								 String estado, String deposito, String cliente,String nlote);
@@ -101,5 +101,6 @@ public interface BulkDao {
 	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,String fechavto);
 	public String verificacionInforme(String deposito);
 	public String verificacionInformeR(String orden);
+	public String VerificaFechaLote(String nlote,String fechavto);
 
 }

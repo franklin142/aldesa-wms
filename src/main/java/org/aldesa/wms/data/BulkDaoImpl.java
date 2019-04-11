@@ -3,9 +3,11 @@ package org.aldesa.wms.data;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -1012,8 +1014,8 @@ public class BulkDaoImpl implements BulkDao{
 		return totales;
 	}
 		
-	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto){
-	String sqlString = "call PRC_Inserta_DetBulk (:codigoBulk, :codProducto, :cliente, :cantidad, :estado, :item,:nlote,:fechavto) ;";
+	public void prcInsertaDetBulk(String codigoBulk, String codProducto, String cliente, String cantidad, String estado, String item,String nlote,String fechavto,String fechavtoConf){
+	String sqlString = "call PRC_Inserta_DetBulk (:codigoBulk, :codProducto, :cliente, :cantidad, :estado, :item,:nlote,:fechavto,:fechavtoConf) ;";
 	Query q = em.createNativeQuery(sqlString);
 	
 	q.setParameter("codigoBulk", codigoBulk)
@@ -1024,6 +1026,7 @@ public class BulkDaoImpl implements BulkDao{
 		.setParameter("item", item)
 		.setParameter("nlote", nlote)
 		.setParameter("fechavto", fechavto)
+		.setParameter("fechavtoConf", fechavtoConf)
 		.executeUpdate();
 }
 	
@@ -1107,7 +1110,15 @@ public class BulkDaoImpl implements BulkDao{
 		String result = (String) query.getSingleResult();
 		return result;
 	}
-
-	
+	public String VerificaFechaLote(String nlote,String fechavto){
+			String sqlString="SELECT VerificaFechaLote(:nlote,:fechavto)";	
+			Query query = em.createNativeQuery(sqlString);
+			query.setParameter("nlote", nlote);
+			query.setParameter("fechavto", fechavto);
+			String result = (String) query.getSingleResult();
+			return result;
+		
+		
+	}	
 }
 

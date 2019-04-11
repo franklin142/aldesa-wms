@@ -211,6 +211,8 @@
 								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>								
 								<c:if test="${ bulk==null }">disabled</c:if>
 								/>
+								<input type="hidden" name="fechavto_confirm" id="fechavto_confirm" class="form-control class_fechavto" value="2"/>
+								
 							</td>
 							
 							<td>
@@ -264,6 +266,7 @@
 				</c:if>
 				<c:if test="${ bulk!=null && !ha_creado }">
 					<script type="text/javascript">
+					    var tabla = document.getElementsByTagName("table")[0];
 						var validarYSubir = function(ptipo){
 							var vtipo = ptipo;
 							if( $("#ancho").val().trim().length<=0 ){
@@ -304,8 +307,10 @@
 							}
 							//Franklin Flores valida Campos vacios para No_Lote y Fec_Venc_Lote
 							var validarNLote=true;
-                    		var tabla = document.getElementsByTagName("table")[0];
-                    		
+                    		var countAjax=0;
+                    		var rowlength=tabla.childNodes[1].children.length;
+							var arrayFecha=new Array();
+							
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
@@ -330,6 +335,40 @@
     										alert('La fecha de vencimiento de lote no puede ser menor o igual a la fecha de hoy.');
     										return;
                 						}
+										
+										tabla.childNodes[1].children[i].cells[7].children[1].value = $.get('arribos_detalle/verifica_fecha_lote',
+													{nlote:valInputNLote,fechavto:valInputFechavto},function(result){
+											if(result=='0'){
+												countAjax++;
+												 if((rowlength-1)==countAjax){
+													 sendData(2,arrayFecha);
+									                }else{
+									                	arrayFecha.push(2);
+							                			return "2";
+									                }
+							                }
+							                if(result!='0'){
+							                	 if(confirm('El lote '+valInputNLote+' ya posee asociada la fecha '+result+'. Seleccione "Aceptar" si desea reemplazarla o "Cancelar" si desea mantener la fecha actual')){
+													countAjax++;
+													 if((rowlength-1)==countAjax){
+														 sendData(1,arrayFecha);
+										                }else{
+										                	arrayFecha.push(1);
+									                		return "1";
+										                }
+							                	 }else{
+													countAjax++;
+													 if((rowlength-1)==countAjax){
+														 sendData(0,arrayFecha);
+										                }else{
+										                	arrayFecha.push(0);
+										                	return "0";
+										                }
+							                	 }
+							                }
+							               
+										});
+
                 					}
                     			}
 
@@ -344,13 +383,22 @@
 								$("#consignatario").val(codm);
 								window.open('/wms-aldesa/web/barcode?valor=${bulk.getCodigoBulk()}&cliente=${bulk.getId_cliente()}+-'+codm, '_blank');
 						   }
-							$('#guardar-detalles').submit();
+							//$('#guardar-detalles').submit();
 							
 						};
 
 						var onPrint = function(){
 							printed = true;
 						};
+					    function sendData(lastVerificacionFecha,pArrayFecha){
+					    	var ArrayFecha = pArrayFecha;
+					    	
+					    	ArrayFecha.push(lastVerificacionFecha);
+					    	for(i=1;i<tabla.childNodes[1].children.length;i++){
+					    		tabla.childNodes[1].children[i].cells[7].children[1].value=ArrayFecha[i-1];
+					    	}
+					    	$('#guardar-detalles').submit();
+					    }
 
 					</script>
 					
@@ -368,6 +416,7 @@
                     </c:if>																	  
 					<div class="col col-lg-3 col-lg-offset-1"><a href="/wms-aldesa/web/arribos" class="btn btn-default btn-block">Salir</a></div>
 				</c:if>
+				<div id ="resultTest"></div>
 			</div>
 		</div>
 	</div>

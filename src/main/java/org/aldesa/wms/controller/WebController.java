@@ -542,6 +542,7 @@ public class WebController {
 			@RequestParam(required=false, defaultValue="") String[] ancho,
 			@RequestParam(required=false, defaultValue="") String[] nolote,
 			@RequestParam(required=false, defaultValue="") String[] fechavto,
+			@RequestParam(required=false, defaultValue="") String[] fechavto_confirm,
 			@RequestParam(required=false, defaultValue="") String[] profund,
 			@RequestParam(required=false, defaultValue="") String[] peso,
 			@RequestParam(required=false, defaultValue="") String[] flejada,
@@ -680,10 +681,10 @@ public class WebController {
 
 				if (tipo.equalsIgnoreCase("D")){
 					if (consignatario.equalsIgnoreCase(codMerc[i])){
-						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i]);
+						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i],fechavto_confirm[i]);
 					}
 				}else {
-					bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i]);
+					bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i],fechavto_confirm[i]);
 				}
 				if(sobrante[i].equalsIgnoreCase("on")){
 					
@@ -720,6 +721,31 @@ public class WebController {
 		}
 		return null;
 	}
+    @RequestMapping(value = "arribos_detalle/verifica_fecha_lote", method = RequestMethod.GET)
+    public @ResponseBody String verifica_fecha_lote(
+			@RequestParam(required=false, defaultValue="0") String nlote,
+			@RequestParam(required=false, defaultValue="") String fechavto,
+
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
+    	String resultado="defecto";	
+    	try {
+    		//procesando fecha de vencimiento. Si esta viene vacia se envia la fecha actual.
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+	    	Date fechaVTO = fechavto.equals("")?Calendar.getInstance().getTime():formatter.parse(fechavto);
+		    formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+		    
+    		resultado = bDao.VerificaFechaLote(nlote, formatter.format(fechaVTO));
+			if(resultado==null) {
+				resultado="0";
+			}
+    	}catch(Exception ex) {
+			
+    		throw ex;
+    	}
+        
+    	//response.getWriter().print(resultado);
+    	return resultado;
+    }
 
 // agregar fecha y hora de fin de transito en recepcion
 
