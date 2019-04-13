@@ -6,10 +6,19 @@
 </script>
 <script>
 	$(document).ready(function(){
-    	$( ".class_fechavto" ).datepicker({
-	   		dateFormat: 'dd/mm/yyyy'
+		
+    	$(".class_fechavto").datepicker({
+	   		format: 'dd/mm/yyyy'
 		});
-	
+    	//$.each($(".class_fechavto"), function (index, value){
+    		//console.log(value+" indice ======"+index);
+    		//$("#fechavto")[index].datepicker({
+    	   	//	dateFormat: 'dd/mm/yyyy'
+    		//	});
+    		//this.datepicker({
+    	   	//	dateFormat: 'dd/mm/yyyy'
+    		//});
+    	//});
 	});
 </script>
 <!-- Hero Area Section -->
@@ -211,7 +220,7 @@
 								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>								
 								<c:if test="${ bulk==null }">disabled</c:if>
 								/>
-								<input type="hidden" name="fechavto_confirm" id="fechavto_confirm" class="form-control class_fechavto" value="2"/>
+								<input type="hidden" name="fechavto_confirm" id="fechavto_confirm" class="form-control" value="2"/>
 								
 							</td>
 							
@@ -310,15 +319,10 @@
                     		var countAjax=0;
                     		var rowlength=tabla.childNodes[1].children.length;
 							var arrayFecha=new Array();
-							console.log("entro al array");
-							console.log("Rows "+tabla.childNodes[1].children.length);
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
-                    			console.log("entro al for");
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
-                    				console.log("entro al if de las celdas");
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
-                						console.log("entro al if de lote");
                 						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
                     					if(valInputFechavto.length==0){
                 							

@@ -301,6 +301,8 @@ public class WebController {
 		  tentregada = inf.getTotEntreg();
           tordenada = inf.getTotSolic();
 		Calendar c = Calendar.getInstance();
+		
+		
 		mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy")).format(new Date()));
 		mdl.addObject("hora", (new SimpleDateFormat("HH:mm:ss")).format(c.getTime()));
 		mdl.addObject("retiros",retiros);
@@ -328,6 +330,7 @@ public class WebController {
             taveriada = taveriada + Integer.parseInt(m.getAveriada());
             tsaldo = tsaldo + Integer.parseInt(m.getSaldo());
         }
+        
 		ModelAndView mv = new ModelAndView("arribos_detalle_ver");
 		mv.addObject("pendientes", pendientes);
 		mv.addObject("deposito", deposito);
@@ -362,6 +365,16 @@ public class WebController {
         }
         List<DetalleBulkV> db = bDao.getDetalleByBulk2(bulk);
         Cliente  c = bDao.getClienteById(cliente);
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		for(int i=0;i<db.size();i++) {
+			if((db.get(i).getnLote()==null)==false) {
+
+				if(db.get(i).getnLote().equals("0")==false) {
+					db.get(i).setFechaVtoString(formatter.format(db.get(i).getFechaVto()));
+				}
+			}
+		}
         ModelAndView mv = new ModelAndView("edit_bulk");
         mv.addObject("bulk", b);
         mv.addObject("detalles", db);
@@ -504,7 +517,7 @@ public class WebController {
         boolean finalizado = false;
         if(!"00:00:00".equalsIgnoreCase(sdf.format(dep1.getHorafindescarga())))
             finalizado = true;
-		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         for(int i=0;i<pendientes.size();i++) {
 			if((pendientes.get(i).getnLote()==null)==false) {
 
@@ -606,7 +619,7 @@ public class WebController {
             }
 			b = mercDao.saveBulk(b);
 			List<MercPendRecibir> pendientes = mercDao.getMercaderiaPendiente(deposito);
-			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 			
 			for(int i=0;i<pendientes.size();i++) {
 				if((pendientes.get(i).getnLote()==null)==false) {
@@ -678,7 +691,7 @@ public class WebController {
                 
                 if(!fechavto[i].equals("")) {
 
-                	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+                	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     				Date fechaVTO = formatter.parse(fechavto[i]);
     				formatter= new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     				fechavto[i]=formatter.format(fechaVTO);
@@ -739,10 +752,9 @@ public class WebController {
     	String resultado="defecto";	
     	try {
     		//procesando fecha de vencimiento. Si esta viene vacia se envia la fecha actual.
-			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 	    	Date fechaVTO = fechavto.equals("")?Calendar.getInstance().getTime():formatter.parse(fechavto);
 		    formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-		    
     		resultado = bDao.VerificaFechaLote(nlote, formatter.format(fechaVTO));
 			if(resultado==null) {
 				resultado="0";
@@ -751,9 +763,7 @@ public class WebController {
 			
     		throw ex;
     	}
-        
-    	//response.getWriter().print(resultado);
-    	return resultado;
+       	return resultado;
     }
 
 // agregar fecha y hora de fin de transito en recepcion

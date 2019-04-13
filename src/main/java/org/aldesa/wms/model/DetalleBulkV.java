@@ -44,6 +44,9 @@ public class DetalleBulkV implements Serializable {
 	@Column(name="item")
 	private String item;
 	
+	@Transient
+	private String fechaVtoString;
+	
 	public DetalleBulkV() {
 	}
 
@@ -126,5 +129,10 @@ public class DetalleBulkV implements Serializable {
 	public void setFechaVto(Date fechaVto) {
 		this.fechaVto = fechaVto;
 	}
-
+	public void setFechaVtoString(String fechaVtoString) {
+		this.fechaVtoString = fechaVtoString;
+	}
+	public String getFechaVtoString() {
+		return fechaVtoString;
+	}
 }
