@@ -310,12 +310,16 @@
                     		var countAjax=0;
                     		var rowlength=tabla.childNodes[1].children.length;
 							var arrayFecha=new Array();
-							
+							console.log("entro al array");
+							console.log("Rows "+tabla.childNodes[1].children.length);
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
+                    			console.log("entro al for");
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
+                    				console.log("entro al if de las celdas");
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
-                    					var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
+                						console.log("entro al if de lote");
+                						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
                     					if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
@@ -335,7 +339,6 @@
     										alert('La fecha de vencimiento de lote no puede ser menor o igual a la fecha de hoy.');
     										return;
                 						}
-										
 										tabla.childNodes[1].children[i].cells[7].children[1].value = $.get('arribos_detalle/verifica_fecha_lote',
 													{nlote:valInputNLote,fechavto:valInputFechavto},function(result){
 											if(result=='0'){
@@ -369,6 +372,12 @@
 							               
 										});
 
+                					}else{
+										countAjax++;
+					                	arrayFecha.push(2);
+					                	if((rowlength-1)==countAjax){
+											sendData(2,arrayFecha);
+							            }
                 					}
                     			}
 
