@@ -504,6 +504,15 @@ public class WebController {
         boolean finalizado = false;
         if(!"00:00:00".equalsIgnoreCase(sdf.format(dep1.getHorafindescarga())))
             finalizado = true;
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        for(int i=0;i<pendientes.size();i++) {
+			if((pendientes.get(i).getnLote()==null)==false) {
+
+				if(pendientes.get(i).getnLote().equals("0")==false) {
+					pendientes.get(i).setFechaVtoString(formatter.format(pendientes.get(i).getFechaVto()));
+				}
+			}
+		}
         mv.addObject("finalizado", finalizado);
 		mv.addObject("recepcion", recepcion);
 		mv.addObject("pendientes", pendientes);
