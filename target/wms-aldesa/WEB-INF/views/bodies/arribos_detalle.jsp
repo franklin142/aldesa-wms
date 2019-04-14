@@ -6,10 +6,19 @@
 </script>
 <script>
 	$(document).ready(function(){
-    	$( ".class_fechavto" ).datepicker({
-	   		dateFormat: 'dd/mm/yyyy'
+		
+    	$(".class_fechavto").datepicker({
+	   		format: 'dd/mm/yyyy'
 		});
-	
+    	//$.each($(".class_fechavto"), function (index, value){
+    		//console.log(value+" indice ======"+index);
+    		//$("#fechavto")[index].datepicker({
+    	   	//	dateFormat: 'dd/mm/yyyy'
+    		//	});
+    		//this.datepicker({
+    	   	//	dateFormat: 'dd/mm/yyyy'
+    		//});
+    	//});
 	});
 </script>
 <!-- Hero Area Section -->
@@ -211,7 +220,7 @@
 								<c:if test="${ m.getnLote()!='0'}">value="${m.getFechaVtoString()}"</c:if>								
 								<c:if test="${ bulk==null }">disabled</c:if>
 								/>
-								<input type="hidden" name="fechavto_confirm" id="fechavto_confirm" class="form-control class_fechavto" value="2"/>
+								<input type="hidden" name="fechavto_confirm" id="fechavto_confirm" class="form-control" value="2"/>
 								
 							</td>
 							
@@ -310,17 +319,13 @@
                     		var countAjax=0;
                     		var rowlength=tabla.childNodes[1].children.length;
 							var arrayFecha=new Array();
-							console.log("entro al array");
-							console.log("Rows "+tabla.childNodes[1].children.length);
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
-                    			console.log("entro al for");
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
-                    				console.log("entro al if de las celdas");
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
-                						console.log("entro al if de lote");
                 						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
-                    					if(valInputFechavto.length==0){
+
+                						if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
     												tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
@@ -339,39 +344,49 @@
     										alert('La fecha de vencimiento de lote no puede ser menor o igual a la fecha de hoy.');
     										return;
                 						}
-										tabla.childNodes[1].children[i].cells[7].children[1].value = $.get('arribos_detalle/verifica_fecha_lote',
-													{nlote:valInputNLote,fechavto:valInputFechavto},function(result){
-											if(result=='0'){
-												countAjax++;
-												 if((rowlength-1)==countAjax){
-													 sendData(2,arrayFecha);
-									                }else{
-									                	arrayFecha.push(2);
-							                			return "2";
-									                }
-							                }
-							                if(result!='0'){
-							                	 if(confirm('El lote '+valInputNLote+' ya posee asociada la fecha '+result+'. Seleccione "Aceptar" si desea reemplazarla o "Cancelar" si desea mantener la fecha actual')){
-													countAjax++;
-													 if((rowlength-1)==countAjax){
-														 sendData(1,arrayFecha);
-										                }else{
-										                	arrayFecha.push(1);
-									                		return "1";
-										                }
-							                	 }else{
-													countAjax++;
-													 if((rowlength-1)==countAjax){
-														 sendData(0,arrayFecha);
-										                }else{
-										                	arrayFecha.push(0);
-										                	return "0";
-										                }
-							                	 }
-							                }
-							               
-										});
 
+                    					$.ajax({
+                    	                      async:false,
+                    	                      cache:false,
+                    	                      type: 'GET',
+                    	                      url: "arribos_detalle/verifica_fecha_lote",
+                    	                      data: {nlote:valInputNLote,fechavto:valInputFechavto},
+                    	                      success:  function(result){
+                    	                    	  if(result=='0'){
+      												countAjax++;
+      												 if((rowlength-1)==countAjax){
+      													 sendData(2,arrayFecha);
+      									                }else{
+      									                	arrayFecha.push(2);
+      							                			return "2";
+      									                }
+      							                }
+      							                if(result!='0'){
+      							                	 if(confirm('El lote '+valInputNLote+' ya posee asociada la fecha '+result+'. Seleccione "Aceptar" si desea reemplazarla o "Cancelar" si desea mantener la fecha actual')){
+      													countAjax++;
+      													 if((rowlength-1)==countAjax){
+      														 sendData(1,arrayFecha);
+      										                }else{
+      										                	arrayFecha.push(1);
+      									                		return "1";
+      										                }
+      							                	 }else{
+      													countAjax++;
+      													 if((rowlength-1)==countAjax){
+      														 sendData(0,arrayFecha);
+      										                }else{
+      										                	arrayFecha.push(0);
+      										                	return "0";
+      										                }
+      							                	 }
+      							                }
+                    	                    	  
+                    	                      },
+                    	                      beforeSend:function(){},
+                    	                      error: function (xhr, ajaxOptions, throwError) {
+                    	                          console.log(xhr.status + " \n" + xhr.responseText + "\n " + throwError);
+                    	                      }
+                    	                    });
                 					}else{
 										countAjax++;
 					                	arrayFecha.push(2);
@@ -392,7 +407,7 @@
 								$("#consignatario").val(codm);
 								window.open('/wms-aldesa/web/barcode?valor=${bulk.getCodigoBulk()}&cliente=${bulk.getId_cliente()}+-'+codm, '_blank');
 						   }
-							//$('#guardar-detalles').submit();
+						//	$('#guardar-detalles').submit();
 							
 						};
 

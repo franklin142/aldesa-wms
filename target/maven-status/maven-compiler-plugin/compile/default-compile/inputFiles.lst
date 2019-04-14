@@ -72,4 +72,5 @@
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/PosicionEstante.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/MercRecibida.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/Bodega.java
+/home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/model/BulkCV.java
 /home/parallels/git/aldesa-wms/src/main/java/org/aldesa/wms/data/BulkDao.java

@@ -149,11 +149,7 @@ $(document).ready(function(){
 							<td>
 							    <input type="hidden" name="fechavto" id="fechavto" value="${ m.getFechaVto()}"/>
 							
-								<input type="text" class="form-control class_fechavto" 
-								disabled
-								value="${ m.getFechaVto()}"
-								
-								/>
+								<input type="text" class="form-control class_fechavto" disabled value="${ m.getFechaVtoString()}"/>
 							</td>
                             <td>
                                 <input type="checkbox" class="form-control"

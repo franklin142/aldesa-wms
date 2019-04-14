@@ -1115,8 +1115,12 @@ public class BulkDaoImpl implements BulkDao{
 			Query query = em.createNativeQuery(sqlString);
 			query.setParameter("nlote", nlote);
 			query.setParameter("fechavto", fechavto);
-			String result = (String) query.getSingleResult();
-			return result;
+			Date result = (Date) query.getSingleResult();
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+			String converted = result==null?null:formatter.format(result);
+			
+			return converted;
 		
 		
 	}	

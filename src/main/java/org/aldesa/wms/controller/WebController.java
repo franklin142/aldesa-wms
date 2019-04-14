@@ -753,9 +753,12 @@ public class WebController {
     	try {
     		//procesando fecha de vencimiento. Si esta viene vacia se envia la fecha actual.
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-	    	Date fechaVTO = fechavto.equals("")?Calendar.getInstance().getTime():formatter.parse(fechavto);
-		    formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-    		resultado = bDao.VerificaFechaLote(nlote, formatter.format(fechaVTO));
+			Date fechaVTO = fechavto.equals("")?Calendar.getInstance().getTime():formatter.parse(fechavto);
+			
+			formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+			String converted = formatter.format(fechaVTO);
+			
+			resultado = bDao.VerificaFechaLote(nlote, converted);
 			if(resultado==null) {
 				resultado="0";
 			}

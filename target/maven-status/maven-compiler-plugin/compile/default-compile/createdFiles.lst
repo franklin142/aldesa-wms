@@ -32,6 +32,7 @@ org/aldesa/wms/model/DetalleBulkPK.class
 org/aldesa/wms/model/UsuarioAcceso.class
 org/aldesa/wms/data/BulkDao.class
 org/aldesa/wms/model/Grupo.class
+org/aldesa/wms/model/BulkCV.class
 org/aldesa/wms/model/GrupoOpcion.class
 org/aldesa/wms/model/OrdenRetiro.class
 org/aldesa/wms/data/MercadRecibidaDao.class
