@@ -324,7 +324,8 @@
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
                 						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
-
+                						//alert('');
+                						//alert(moment(valInputFechavto,"DD/MM/YYYY").format('DD/MM/YYYY')+' '+moment().format('DD/MM/YYYY'));
                 						if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
@@ -335,16 +336,15 @@
                 							var regex = /([0-9]{2})\/([0-9]{2})\/([0-9]{4})/;
                 							if(!regex.test(valInputFechavto)){
                 							    alert('La fecha del detalle con codigo '+tabla.childNodes[1].children[i].cells[0].childNodes[0].data+
-                							    	  ' tiene un formato incorrecto. Introduzca una fecha con el formato MM/DD/YYYY');
+                							    	  ' tiene un formato incorrecto. Introduzca una fecha con el formato DD/MM/YYYY');
                 							    return;
                 							}
                 						}
-										if((new Date(valInputFechavto))<=new Date()){
+										if(moment(valInputFechavto,"DD/MM/YYYY")<=moment()){
                 							
-    										alert('La fecha de vencimiento de lote no puede ser menor o igual a la fecha de hoy.');
+    										alert('La fecha de vencimiento del lote '+valInputNLote+' no puede ser menor o igual a la fecha de hoy.');
     										return;
                 						}
-
                     					$.ajax({
                     	                      async:false,
                     	                      cache:false,
@@ -362,7 +362,7 @@
       									                }
       							                }
       							                if(result!='0'){
-      							                	 if(confirm('El lote '+valInputNLote+' ya posee asociada la fecha '+result+'. Seleccione "Aceptar" si desea reemplazarla o "Cancelar" si desea mantener la fecha actual')){
+      							                	 if(confirm('El lote '+valInputNLote+' ya posee asociada la fecha '+result+'. Seleccione "Aceptar" si desea reemplazarla por '+valInputFechavto+' o "Cancelar" si desea mantener '+result)){
       													countAjax++;
       													 if((rowlength-1)==countAjax){
       														 sendData(1,arrayFecha);
@@ -421,7 +421,7 @@
 					    	for(i=1;i<tabla.childNodes[1].children.length;i++){
 					    		tabla.childNodes[1].children[i].cells[7].children[1].value=ArrayFecha[i-1];
 					    	}
-					    	$('#guardar-detalles').submit();
+					    	//$('#guardar-detalles').submit();
 					    }
 
 					</script>

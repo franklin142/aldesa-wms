@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Bulk entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "Bulkc_v")
+@Table(name = "bulkc_v")
 
 public class BulkCV implements java.io.Serializable {
 
