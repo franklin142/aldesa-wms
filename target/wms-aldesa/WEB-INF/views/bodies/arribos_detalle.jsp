@@ -421,7 +421,7 @@
 					    	for(i=1;i<tabla.childNodes[1].children.length;i++){
 					    		tabla.childNodes[1].children[i].cells[7].children[1].value=ArrayFecha[i-1];
 					    	}
-					    	//$('#guardar-detalles').submit();
+					    	$('#guardar-detalles').submit();
 					    }
 
 					</script>

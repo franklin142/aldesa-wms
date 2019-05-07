@@ -1006,7 +1006,7 @@ public class BulkDaoImpl implements BulkDao{
 		String sql = "select deposito, CAST(ROUND(sum(ancho),2) as char), CAST(ROUND(sum(alto),2) as char), " +
 		"CAST(ROUND(sum(profundidad),2) as char), CAST(ROUND(sum(ancho*profundidad),2) as char), " +
 		"CAST(ROUND(sum(ancho*profundidad*alto),2) as char), CAST(ROUND(sum(peso),2) as char) " +
-		"from  bulkc_v where deposito=:deposito " + 
+		"from  Bulkc_v where deposito=:deposito " + 
 		" group by deposito;";
 		Query q = em.createNativeQuery(sql);
 		q.setParameter("deposito", deposito);
