@@ -10,15 +10,6 @@
     	$(".class_fechavto").datepicker({
 	   		format: 'dd/mm/yyyy'
 		});
-    	//$.each($(".class_fechavto"), function (index, value){
-    		//console.log(value+" indice ======"+index);
-    		//$("#fechavto")[index].datepicker({
-    	   	//	dateFormat: 'dd/mm/yyyy'
-    		//	});
-    		//this.datepicker({
-    	   	//	dateFormat: 'dd/mm/yyyy'
-    		//});
-    	//});
 	});
 </script>
 <!-- Hero Area Section -->
@@ -130,27 +121,19 @@
 					var validarDiferencia2 = function(declarado, valor, input, codigomerc){
 						var d = parseInt(declarado,10);
 						var v = parseInt(valor,10);
+						
+					    /*if(input.parentNode.parentNode.children[9].children[0].checked==false){
+							if(input.parentNode.parentNode.children[3].children[0].value==0){
+								input.parentNode.parentNode.children[3].children[0].value ="";
+							}
+						}*/
+						
 						if (v>0) {
 						    codm = codigomerc;
 						}
-						if(v==0){
-							var ans = confirm("¿ESTA SEGURO QUE EXISTE UN FALTANTE?");
-							if (!ans){
-								input.focus();
-								input.select();
-							}
-						}
-						if(v>d){
-							var ans = confirm("¿ESTA SEGURO QUE HAY SOBRANTE?");
-							if (!ans){
-								input.focus();
-								input.select();
-							}
-						}
-						if(v<0){
-							alert('Valor digitado debe ser mayor o igual a cero');
-						}
+						
 					};
+					
 				</script>
 				<table class="table table-tripped">
 					<tr>
@@ -163,6 +146,8 @@
 						<th>No. lote</th>
 						<th>Fecha de Vto</th>
 						<th>Posee sobrante?</th>
+						<th>Posee faltante?</th>
+						
 					</tr>
 
 
@@ -188,7 +173,9 @@
 									   placeholder="999" required class="form-control"
 									   <c:if test="${ ha_creado }">disabled</c:if>
 									   <c:if test="${ bulk==null }">disabled</c:if>
-									   step="1" pattern="\d*" /> </td>
+									   step="1" pattern="\d*" /> 
+						    	<input type="hidden" value="${ m.getSaldo().intValue() }" name="valdeclarado"/>
+						    </td>
 							<td>${ m.getUnidad_Medida() }<input type="hidden" value="${ m.getUnidad_Medida() }" name="medida" <c:if test="${ bulk==null }">disabled</c:if>  /></td>
 							<td>
 								<select name="estado"  class="form-control"
@@ -228,9 +215,20 @@
 								<input type="checkbox" class="form-control"
 									   <c:if test="${ finalizado }">disabled</c:if>
 									   <c:if test="${ ha_creado }">disabled</c:if>
+									   onchange="onChange_Faltante(0,${ m.getCodigo_Mercaderia() })"
 									   onclick="$(this).next().val(this.checked?'on':'off')" <c:if test="${ bulk==null }">disabled</c:if>  />
 								<input type="hidden" value="off"
                                        name="sobrante" class="form-control"/>
+							</td>
+							<td>
+								<input type="checkbox" class="form-control"
+									   id="${ m.getCodigo_Mercaderia() }"
+									   <c:if test="${ finalizado }">disabled</c:if>
+									   <c:if test="${ ha_creado }">disabled</c:if>
+									   onchange="onChange_Faltante(1,${ m.getCodigo_Mercaderia() })"
+									   onclick="$(this).next().val(this.checked?'on':'off')" <c:if test="${ bulk==null }">disabled</c:if>  />
+								<input type="hidden" value="off"
+                                       name="faltante" class="form-control"/>
 							</td>
 						</tr>
 					</c:forEach>
@@ -322,10 +320,66 @@
                     		for(i=0;i<tabla.childNodes[1].children.length;i++){
                     			if(tabla.childNodes[1].children[i].cells[0].nodeName=="TD"){
                 					var valInputNLote = tabla.childNodes[1].children[i].cells[6].children[0].value;	
+                					
+                					var d = parseInt(tabla.childNodes[1].children[i].cells[3].children[1].value,10);
+        							var v = parseInt(tabla.childNodes[1].children[i].cells[3].children[0].value,10);
+        							
+        							if(tabla.childNodes[1].children[i].cells[3].children[0].value==""&& tabla.childNodes[1].children[i].cells[9].children[0].checked==false){
+        								var ans = confirm("¿ESTA SEGURO QUE EXISTE UN FALTANTE EN EL DETALLE CON CÓDIGO DE MERCADERÍA \""+
+        										tabla.childNodes[1].children[i].cells[0].childNodes[0].data+"\"?");
+        								if (!ans){
+        									tabla.childNodes[1].children[i].cells[3].children[0].focus();
+        									tabla.childNodes[1].children[i].cells[3].children[0].select();
+        									return;
+        								}else{
+            								tabla.childNodes[1].children[i].cells[8].children[0].checked =false;
+            								tabla.childNodes[1].children[i].cells[8].children[1].value ="off";
+
+            								tabla.childNodes[1].children[i].cells[9].children[0].checked =true;
+            								tabla.childNodes[1].children[i].cells[3].children[0].value ="0"
+            								tabla.childNodes[1].children[i].cells[9].children[1].value ="on";
+            							}
+        							}else{
+        								if(tabla.childNodes[1].children[i].cells[3].children[0].value==""){
+        									var ans = confirm("¿ESTA SEGURO QUE EXISTE UN FALTANTE EN EL DETALLE CON CÓDIGO DE MERCADERÍA \""+
+            										tabla.childNodes[1].children[i].cells[0].childNodes[0].data+"\"?");
+            								if (!ans){
+            									tabla.childNodes[1].children[i].cells[3].children[0].focus();
+            									tabla.childNodes[1].children[i].cells[3].children[0].select();
+            									return;
+            								}else{
+            									tabla.childNodes[1].children[i].cells[8].children[0].checked =false;
+                								tabla.childNodes[1].children[i].cells[8].children[1].value ="off";
+
+                								tabla.childNodes[1].children[i].cells[9].children[0].checked =true;
+                								tabla.childNodes[1].children[i].cells[3].children[0].value ="0"
+                								tabla.childNodes[1].children[i].cells[9].children[1].value ="on";
+                							}
+        								}
+        							}
+        							
+        							if(v>d && tabla.childNodes[1].children[i].cells[8].children[0].checked==false){
+        								var ans = confirm("¿ESTA SEGURO QUE HAY SOBRANTE EN EL DETALLE CON CÓDIGO DE MERCADERÍA \""+
+        										tabla.childNodes[1].children[i].cells[0].childNodes[0].data+"\"?");
+        								if (!ans){
+        									tabla.childNodes[1].children[i].cells[3].children[0].focus();
+        									tabla.childNodes[1].children[i].cells[3].children[0].select();
+        									return;
+        								}else{
+        									tabla.childNodes[1].children[i].cells[9].children[0].checked =false;
+            								tabla.childNodes[1].children[i].cells[9].children[1].value ="off";
+            								tabla.childNodes[1].children[i].cells[8].children[0].checked =true;
+            								tabla.childNodes[1].children[i].cells[8].children[1].value ="on";
+            							}
+        							}
+        							
+        							if(v<0){
+        								alert('Valor digitado debe ser mayor o igual a cero');
+        								return;
+        							}
+        							
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
                 						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
-                						//alert('');
-                						//alert(moment(valInputFechavto,"DD/MM/YYYY").format('DD/MM/YYYY')+' '+moment().format('DD/MM/YYYY'));
                 						if(valInputFechavto.length==0){
                 							
     										alert('Ha digitado un numero de lote para el detalle con codigo \"'+
@@ -407,13 +461,26 @@
 								$("#consignatario").val(codm);
 								window.open('/wms-aldesa/web/barcode?valor=${bulk.getCodigoBulk()}&cliente=${bulk.getId_cliente()}+-'+codm, '_blank');
 						   }
-						//	$('#guardar-detalles').submit();
 							
 						};
 
 						var onPrint = function(){
 							printed = true;
 						};
+						var onChange_Faltante = function(option,codmercaderia){
+							var input = document.getElementById(codmercaderia);
+							if(option==0){
+								input.parentNode.parentNode.children[9].children[0].checked =false;
+								input.parentNode.parentNode.children[9].children[1].value ="off";
+							}else{
+								input.parentNode.parentNode.children[8].children[0].checked =false;
+								input.parentNode.parentNode.children[8].children[1].value ="off";
+
+								if(input.parentNode.parentNode.children[9].children[0].checked){
+									input.parentNode.parentNode.children[3].children[0].value="0";
+								}
+							}
+						}
 					    function sendData(lastVerificacionFecha,pArrayFecha){
 					    	var ArrayFecha = pArrayFecha;
 					    	
@@ -421,6 +488,7 @@
 					    	for(i=1;i<tabla.childNodes[1].children.length;i++){
 					    		tabla.childNodes[1].children[i].cells[7].children[1].value=ArrayFecha[i-1];
 					    	}
+					    	//console.log("listo para guardar");
 					    	$('#guardar-detalles').submit();
 					    }
 

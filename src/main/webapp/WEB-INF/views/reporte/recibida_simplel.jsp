@@ -196,8 +196,8 @@
                                                                                                  		    [
                                                                                                  		    	{text: '${ m.getCodigoMercaderia() }',alignment: 'center',fontSize: 7},
                                                                                                                 {text: '${ m.getDescripcion() }',alignment: 'center',fontSize: 7},
-                                                                                                                {text: '${ m.getnLote() }',alignment: 'center',fontSize: 7},
-        																										{text: moment('${ m.getFechaVto() }').format("DD/MM/YYYY"),alignment: 'center',fontSize: 7},
+                                                                                                                {text: (('${ m.getnLote()}'=='0')?'':'${ m.getnLote() }'),alignment: 'center',fontSize: 7},
+        																										{text: (('${ m.getnLote()}'=='0')?'':moment('${ m.getFechaVto()}').format("DD/MM/YYYY")),alignment: 'center',fontSize: 7},
         																										{text: '${ m.getDeclarada() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getRecibida() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getSaldo() }', alignment: 'center',fontSize: 7},

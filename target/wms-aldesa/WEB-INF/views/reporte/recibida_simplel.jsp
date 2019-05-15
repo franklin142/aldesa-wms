@@ -196,8 +196,8 @@
                                                                                                  		    [
                                                                                                  		    	{text: '${ m.getCodigoMercaderia() }',alignment: 'center',fontSize: 7},
                                                                                                                 {text: '${ m.getDescripcion() }',alignment: 'center',fontSize: 7},
-                                                                                                                {text: '${ m.getnLote() }',alignment: 'center',fontSize: 7},
-        																										{text: moment('${ m.getFechaVto() }').format("DD/MM/YYYY"),alignment: 'center',fontSize: 7},
+                                                                                                                {text: (('${ m.getnLote()}'=='0')?'':'${ m.getnLote() }'),alignment: 'center',fontSize: 7},
+        																										{text: (('${ m.getnLote()}'=='0')?'':moment('${ m.getFechaVto()}').format("DD/MM/YYYY")),alignment: 'center',fontSize: 7},
         																										{text: '${ m.getDeclarada() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getRecibida() }', alignment: 'center',fontSize: 7},
                                                                                                         		{text: '${ m.getSaldo() }', alignment: 'center',fontSize: 7},
@@ -208,6 +208,10 @@
                                                                                                     ]
                                                                                                 }
                                                                                             },
+                                                                                            {fontSize: 7, bold: true, margin: [25, 2, 0, 0], stack: [{columns: [{text: ' ', width: 225}, {text: 'TOTALES ', width: 50,alignment: 'center',fontSize: 8},
+                                                                                                {text: '${ tdeclarada }', width: 51, alignment: 'center', fontSize: 7}, {text: '${ trecibida }', width: 49, alignment: 'center', fontSize: 7},
+                                                                                                {text: '${ tsaldo }', width: 48, alignment: 'center', fontSize: 7},
+                                                                                                {text: ' ', width: '*'}], alignment: 'right'}]},
                                                                                             {fontSize: 9, margin: [0, 10, 0, 0], text: [{text: '', bold: true}, '']},
                                                                                             {fontSize: 9,
                                                                                             	table: {
