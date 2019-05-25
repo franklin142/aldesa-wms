@@ -1285,8 +1285,7 @@ public class WebController {
 			return new ModelAndView("wms.sin_permiso");
 		
 		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");	
-		
-
+				
 		List<String> depositos = new ArrayList<String>();
 		List<OrdenEntrega> ordenes  =bDao.getOrdenEntrega(orden,cliente);
 		HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
@@ -1299,18 +1298,14 @@ public class WebController {
 		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
 
 		for (OrdenEntrega ord:ordenes){
-
 			if (ord == null) continue;
 			if(verificacionInformeR.equals("L")) {
-
 				ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
 				ord.setEstadoMercaderiaSolicitada(ord.getEstadoMercaderiaSolicitada().substring(0,1));
-				if((ord.getnLote()==null)==false) {
-					if(ord.getnLote().equals("0")==false) {
-						ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
-					}
+				if(!(ord.getFechaVto()==null)) {
+					ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
 				}
-			    //ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+				
 			}
 
 			depo = ord.getDeposito();

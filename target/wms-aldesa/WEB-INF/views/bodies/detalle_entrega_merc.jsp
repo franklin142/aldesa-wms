@@ -31,7 +31,7 @@
 					cantidad1 = document.getElementById("_"+codigo_prod+"-cantidad1").value, 
 					codprod = document.getElementById("_"+codigo_prod+"-codigo").value, 
 					cantidadentregada = document.getElementById("_"+codigo_prod+"-cantidadentregada").value;
-				
+					nLote=document.getElementById("_"+codigo_prod+"-nlote").value;
 				if(parseFloat(cantidad)>parseFloat(cantidad1)-parseFloat(cantidadentregada)){ 
 					alert('No se puede sacar mas cantidad que la pendiente');
 					document.getElementById("_"+codigo_prod+"-cantidad").value = original;
@@ -47,16 +47,19 @@
 						pendiente:pendiente,
 						deposito:deposito,
 						bulk:bulk,
-						nSalida:nsalida
+						nSalida:nsalida,
+						nlote:nLote
 				};
 				$.ajax({
 	                data:  parametros,
 	                url:   '/wms-aldesa/web/autorizar_entrega_producto_post/${ orden }/${cliente}/',
-	                type:  'post',
-	                // beforeSend: function () {},
+	                type:  'post',	                
 	                success:  function (response) {
 	                	console.log('Actualizacion de producto '+ codigo_prod + '');
-	                }
+	                },
+	                error: function (xhr, ajaxOptions, throwError) {
+                        console.log(xhr.status + " \n" + xhr.responseText + "\n " + throwError);
+                    }
 	        });
 			};
 		</script>
@@ -100,7 +103,7 @@
 						<input type="hidden" id="_${loop.index}-deposito" name="deposito" value="${merc.getDeposito()}"/>
 						<input type="hidden" name="nSalida"  id="_${loop.index}-nsalida" value="${merc.getnSalida()}"/>
 					</td>
-					<td><input id="nolote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
+					<td><input id="_${loop.index}-nlote" type="hidden" name="nolote" value="${merc.getnLote()}"/>
 						${merc.getnLote()}
 					</td>
 				</tr> 
