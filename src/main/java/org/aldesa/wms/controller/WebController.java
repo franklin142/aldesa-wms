@@ -1284,7 +1284,9 @@ public class WebController {
 		if(!ControllerUtils.isAllowed(request, uDao, 29))
 			return new ModelAndView("wms.sin_permiso");
 		
-		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");		
+		ModelAndView mdl = new ModelAndView("reporte.orden_preparacion3");	
+		
+
 		List<String> depositos = new ArrayList<String>();
 		List<OrdenEntrega> ordenes  =bDao.getOrdenEntrega(orden,cliente);
 		HashMap<String, OrdenEntrega> ordenesHash = new HashMap<String, OrdenEntrega>();
@@ -1294,15 +1296,23 @@ public class WebController {
 		String depo, codigo;
 		String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
 		mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparacionl"):mdl;
-		
+		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
+
 		for (OrdenEntrega ord:ordenes){
+
 			if (ord == null) continue;
 			if(verificacionInformeR.equals("L")) {
+
 				ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
 				ord.setEstadoMercaderiaSolicitada(ord.getEstadoMercaderiaSolicitada().substring(0,1));
-				SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
-			    ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+				if((ord.getnLote()==null)==false) {
+					if(ord.getnLote().equals("0")==false) {
+						ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
+					}
+				}
+			    //ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
 			}
+
 			depo = ord.getDeposito();
 			codigo = ord.getCodigo();
 			if(!depositos.contains(depo))
@@ -1327,11 +1337,13 @@ public class WebController {
                 ord.setPreparadas(""+ord.getCantidadPreparada().toString());
 				ordenesHash.put(depo+codigo+ord.getCorrelativo(), ord);
 			}
+
 		}
 		for(Object[] t:tdepositos) {
 			tcantidad += Integer.parseInt(""+t[2]);
 			tpreparada += Integer.parseInt(""+t[3]);
 			tsaldo += Integer.parseInt(""+t[4]);
+
 		}
 		mdl.addObject("recepcion_mercaderia", ordenesHash.values());
 		mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
@@ -1346,6 +1358,7 @@ public class WebController {
 		mdl.addObject("tsaldo", tsaldo);
 		mdl.addObject("tdepositos", tdepositos);
 		mdl.addObject("stdepositos", stdepositos);
+		
         return mdl;
 		
 	}
@@ -1619,7 +1632,6 @@ public class WebController {
             @RequestParam String bulk,
             @RequestParam String nSalida,
             @RequestParam String nlote,
-            @RequestParam String fechavto,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (!ControllerUtils.isValidUser(request, uDao)) {
             response.sendError(HttpResponseCodes.SC_FORBIDDEN, "Please login");
