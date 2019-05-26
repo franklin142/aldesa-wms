@@ -285,10 +285,15 @@ public class WebController {
 		InformeRetiro inf = bDao.getInformeById(retiro, cliente);
 		List<DetalleInformeRetiro> retiros = bDao.getDetalleRetiro(retiro, cliente);
 		ModelAndView mdl;
+		
 		if (tipo.equalsIgnoreCase("D")){
 			mdl = new ModelAndView("reporte.salida_desconsolidado");
 		}else {
 		    mdl = new ModelAndView("reporte.salida_simple2");
+		    
+		}
+		if(bDao.verificacionInformeR(retiro).equals("L")) {
+			mdl = new ModelAndView("reporte.salida_simplel");
 		}
 		mdl.addObject("tipo", inf.getTipoDeposito());
 		mdl.addObject("enc", inf);
