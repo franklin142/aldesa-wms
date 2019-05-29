@@ -122,16 +122,10 @@
 						var d = parseInt(declarado,10);
 						var v = parseInt(valor,10);
 						
-					    /*if(input.parentNode.parentNode.children[9].children[0].checked==false){
-							if(input.parentNode.parentNode.children[3].children[0].value==0){
-								input.parentNode.parentNode.children[3].children[0].value ="";
-							}
-						}*/
-						
 						if (v>0) {
 						    codm = codigomerc;
+							$("#consignatario").val(codm);
 						}
-						
 					};
 					
 				</script>
@@ -174,6 +168,7 @@
 									   <c:if test="${ ha_creado }">disabled</c:if>
 									   <c:if test="${ bulk==null }">disabled</c:if>
 									   step="1" pattern="\d*" /> 
+									   
 						    	<input type="hidden" value="${ m.getSaldo().intValue() }" name="valdeclarado"/>
 						    </td>
 							<td>${ m.getUnidad_Medida() }<input type="hidden" value="${ m.getUnidad_Medida() }" name="medida" <c:if test="${ bulk==null }">disabled</c:if>  /></td>

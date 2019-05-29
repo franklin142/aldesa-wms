@@ -134,12 +134,12 @@
                             {text:'${ m.getDescripcion() }',alignment: 'center'},
                             {text:'${m.getnLote()}'=="0"?'':'${m.getnLote()}',alignment: 'center'},
                             {text:'${m.getnLote()}'=="0"?'':moment('${ m.getFechaVto() }').format("DD/MM/YYYY"),alignment: 'center'}, 
-                            {text:'${ m.getCantidad()-m.getEntregada()-m.getBultos() }',alignment: 'center'},
+                            {text:'${ m.getCantidad()-m.getEntregada()-m.getBultos() }',alignment: 'right'},
                             {text:'${ m.getUnidad_de_Medida() }',alignment: 'center'},
                             {text:'${ m.getEstado() }',alignment: 'center'}
                         ],</c:forEach>
                         [{text:'Total Retiro: ${tbultos+tordenada-tdiferencia}',colSpan:5,alignment: 'center'},
-                            '','','','','','','']
+                            '','','','','','',''] 
                     ]
                 }},
                 {columns:[

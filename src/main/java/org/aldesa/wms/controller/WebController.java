@@ -1302,11 +1302,8 @@ public class WebController {
 		String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
 		mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparacionl"):mdl;
 		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
-		Exception ex = new Exception();
-		try {
-			ex = new Exception(ordenes.size()+"  ;asdasd");
+		
 		for (OrdenEntrega ord:ordenes){
-			ex = new Exception("entramos al for");
 			if (ord == null) continue;
 			if(verificacionInformeR.equals("L")) {
 				ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
@@ -1364,9 +1361,7 @@ public class WebController {
 		mdl.addObject("tsaldo", tsaldo);
 		mdl.addObject("tdepositos", tdepositos);
 		mdl.addObject("stdepositos", stdepositos);
-		}catch(Exception e) {
-			throw ex;
-		}
+		
         return mdl;
 		
 	}
