@@ -92,7 +92,7 @@
                             '${merc.getCodigoBulk()}',
                             {text:'${merc.getEstadoMercaderia()}',alignment:'center'},
                             ('${merc.getnLote()}'=='0'?'':'${merc.getnLote()}'),
-                            ('${merc.getnLote()}'=='0'?'':'${merc.getFechaVtoString()}')
+                            ('${merc.getFechaVtoString()}')
                         ]<c:forEach var="st" items="${stdepositos}" varStatus="loop"> <c:if test="${st[1].toString().equalsIgnoreCase(d) and st[2].toString().equalsIgnoreCase(merc.getCorrelativo())}" >, ['Sub Total', ' ', ' ',
                             '${st[3]}',
                             '${st[4]}',

@@ -77,7 +77,7 @@
                             '${merc.getCantidad()}', '${merc.getPreparadas()}', 
                             '${merc.getEntregadas()}','${merc.getSaldos()}',
                             '${merc.getEstante() }', '${merc.getCodigoBulk()}',
-                            ('${merc.getnLote()}'=='0'?'':'${merc.getnLote()}'),
+                            ('${merc.getnLote()}'=='0':'${merc.getnLote()}),
                             ('${merc.getnLote()}'=='0'?'':'${merc.getFechaVtoString()}')
                         ]<c:forEach var="st" items="${stdepositos}" varStatus="loop"> 
                          <c:if test="${st[1].toString().equalsIgnoreCase(d) and st[2].toString().equalsIgnoreCase(merc.getCorrelativo())}" >, ['Sub Total', ' ', ' ',

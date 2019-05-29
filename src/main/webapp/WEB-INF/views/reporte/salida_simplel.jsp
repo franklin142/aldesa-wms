@@ -139,7 +139,7 @@
                             {text:'${ m.getEstado() }',alignment: 'center'}
                         ],</c:forEach>
                         [{text:'Total Retiro: ${tbultos+tordenada-tdiferencia}',colSpan:5,alignment: 'center'},
-                            '','','','','','','']
+                            '','','','','','',''] 
                     ]
                 }},
                 {columns:[

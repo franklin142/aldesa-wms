@@ -622,13 +622,14 @@ public class WebController {
     			mv.addObject("scantidad", 0);
     			mv.addObject("smerc", null);
             }
+            
 			b = mercDao.saveBulk(b);
 			List<MercPendRecibir> pendientes = mercDao.getMercaderiaPendiente(deposito);
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 			
 			for(int i=0;i<pendientes.size();i++) {
 				if((pendientes.get(i).getnLote()==null)==false) {
-
+					
 					if(pendientes.get(i).getnLote().equals("0")==false) {
 						pendientes.get(i).setFechaVtoString(formatter.format(pendientes.get(i).getFechaVto()));
 					}
@@ -642,13 +643,12 @@ public class WebController {
             mv.addObject("deposito", deposito);
 			mv.addObject("printed", false);
 			mv.addObject("estados_mercaderia", bodegaDao.getAllEstadosMercancia());
-
 			return mv;			
 		} else if (_method.equalsIgnoreCase("_put_det_bulk")){
-
 			int i=0;
 			Bulk b = new Bulk();
 			if(porbulk.length>0){
+				
 				if(flejada.length>0 && flejada[0].equalsIgnoreCase("on"))
 					b.setTarimaFlejada("S");
 				else
@@ -668,6 +668,7 @@ public class WebController {
 				if(profund.length<=0 ) b.setPeso(null);
 				else if(profund[0].trim().length()==0) b.setProfundidad(null);
 				else b.setProfundidad(Double.parseDouble(profund[0]));
+				//throw new Exception(consignatario+"<---- consignatario");
 			}
 			b.setCodigoBulk(codbulk);
 			bDao.save(b);
@@ -709,6 +710,7 @@ public class WebController {
 				if (tipo.equalsIgnoreCase("D")){
 					if (consignatario.equalsIgnoreCase(codMerc[i])){
 						bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i],fechavto_confirm[i]);
+					
 					}
 				}else {
 					bDao.prcInsertaDetBulk(codbulk,  codMerc[i], cliente.getCliente_No(),porbulk[i],estado[i],item[i],nolote[i],fechavto[i],fechavto_confirm[i]);
@@ -741,7 +743,6 @@ public class WebController {
 				
 			}
 			pendientes = mercDao.getMercaderiaPendiente(deposito);
-		
 			if(pendientes.size()<=0)
 				return new ModelAndView("redirect:/web/arribos_detalle_ver?cliente="+dep1.getCliente()+"&deposito="+deposito+"&tipo="+tipo);
 			return det_arribos("0", deposito, "1", tipo,dep1.getCliente(), "1", "lbl1",numregs,mensaje, request, response);
@@ -1301,8 +1302,11 @@ public class WebController {
 		String verificacionInformeR = bDao.verificacionInformeR(Integer.toString(orden));
 		mdl = verificacionInformeR.equals("L")?new ModelAndView("reporte.orden_preparacionl"):mdl;
 		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yy");
-
+		Exception ex = new Exception();
+		try {
+			ex = new Exception(ordenes.size()+"  ;asdasd");
 		for (OrdenEntrega ord:ordenes){
+			ex = new Exception("entramos al for");
 			if (ord == null) continue;
 			if(verificacionInformeR.equals("L")) {
 				ord.setEstadoMercaderia(ord.getEstadoMercaderia().substring(0,1));
@@ -1322,8 +1326,10 @@ public class WebController {
 				if(ord.getEstante() == null) continue;
 				o.setEstante(o.getEstante() + "\\n" +ord.getEstante());
 				if(verificacionInformeR.equals("L")) {
-					o.setnLote(o.getnLote() + "\\n" +ord.getnLote());
-					o.setFechaVtoString(o.getFechaVtoString() + "\\n" +ord.getFechaVtoString());
+					if(!o.getnLote().equals("0")) {
+						o.setnLote(o.getnLote() + "\\n" +ord.getnLote());
+						o.setFechaVtoString(o.getFechaVtoString() + "\\n" +ord.getFechaVtoString());
+					}
 				}
                 o.setEstadoMercaderia(o.getEstadoMercaderia() + "\\n" + ord.getEstadoMercaderia());
                 o.setTipoUbicacion(o.getTipoUbicacion() + "\\n" + ord.getTipoUbicacion());
@@ -1358,7 +1364,9 @@ public class WebController {
 		mdl.addObject("tsaldo", tsaldo);
 		mdl.addObject("tdepositos", tdepositos);
 		mdl.addObject("stdepositos", stdepositos);
-		
+		}catch(Exception e) {
+			throw ex;
+		}
         return mdl;
 		
 	}
