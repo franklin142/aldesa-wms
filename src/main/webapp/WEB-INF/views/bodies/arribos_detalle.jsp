@@ -210,8 +210,8 @@
 								<input type="checkbox" class="form-control"
 									   <c:if test="${ finalizado }">disabled</c:if>
 									   <c:if test="${ ha_creado }">disabled</c:if>
-									   onchange="onChange_Faltante(0,${ m.getCodigo_Mercaderia() })"
-									   onclick="$(this).next().val(this.checked?'on':'off')" <c:if test="${ bulk==null }">disabled</c:if>  />
+									   onchange="onChange_Sobrante_Faltante(0,'${m.getCodigo_Mercaderia()}')"
+									   <c:if test="${ bulk==null }">disabled</c:if>  />
 								<input type="hidden" value="off"
                                        name="sobrante" class="form-control"/>
 							</td>
@@ -220,8 +220,8 @@
 									   id="${ m.getCodigo_Mercaderia() }"
 									   <c:if test="${ finalizado }">disabled</c:if>
 									   <c:if test="${ ha_creado }">disabled</c:if>
-									   onchange="onChange_Faltante(1,${ m.getCodigo_Mercaderia() })"
-									   onclick="$(this).next().val(this.checked?'on':'off')" <c:if test="${ bulk==null }">disabled</c:if>  />
+									   onchange="onChange_Sobrante_Faltante(1,'${m.getCodigo_Mercaderia()}')"
+									   <c:if test="${ bulk==null }">disabled</c:if>  />
 								<input type="hidden" value="off"
                                        name="faltante" class="form-control"/>
 							</td>
@@ -319,6 +319,7 @@
                 					var d = parseInt(tabla.childNodes[1].children[i].cells[3].children[1].value,10);
         							var v = parseInt(tabla.childNodes[1].children[i].cells[3].children[0].value,10);
         							
+        							//faltantes
         							if(tabla.childNodes[1].children[i].cells[3].children[0].value==""&& tabla.childNodes[1].children[i].cells[9].children[0].checked==false){
         								var ans = confirm("¿ESTA SEGURO QUE EXISTE UN FALTANTE EN EL DETALLE CON CÓDIGO DE MERCADERÍA \""+
         										tabla.childNodes[1].children[i].cells[0].childNodes[0].data+"\"?");
@@ -352,7 +353,7 @@
                 							}
         								}
         							}
-        							
+        							//sobrantes
         							if(v>d && tabla.childNodes[1].children[i].cells[8].children[0].checked==false){
         								var ans = confirm("¿ESTA SEGURO QUE HAY SOBRANTE EN EL DETALLE CON CÓDIGO DE MERCADERÍA \""+
         										tabla.childNodes[1].children[i].cells[0].childNodes[0].data+"\"?");
@@ -372,7 +373,7 @@
         								alert('Valor digitado debe ser mayor o igual a cero');
         								return;
         							}
-        							
+        							//fecha de vencimiento y numero de lote
                 					if(valInputNLote.length!=0&&!tabla.childNodes[1].children[i].cells[6].children[0].disabled){
                 						var valInputFechavto = tabla.childNodes[1].children[i].cells[7].children[0].value;	
                 						if(valInputFechavto.length==0){
@@ -462,16 +463,38 @@
 						var onPrint = function(){
 							printed = true;
 						};
-						var onChange_Faltante = function(option,codmercaderia){
+						var onChange_Sobrante_Faltante = function(option,codmercaderia){
+							//se obtiene el control de cantidad con el id codmercaderia para
+							//encontrar en el DOM el resto de controles de su fila en la tabla.
 							var input = document.getElementById(codmercaderia);
+							//option 0 es enviado al hacer clic en sobrante
 							if(option==0){
-								input.parentNode.parentNode.children[9].children[0].checked =false;
-								input.parentNode.parentNode.children[9].children[1].value ="off";
-							}else{
-								input.parentNode.parentNode.children[8].children[0].checked =false;
-								input.parentNode.parentNode.children[8].children[1].value ="off";
+								if(!input.parentNode.parentNode.children[8].children[0].checked){
+									//se apaga sobrante.
+									input.parentNode.parentNode.children[8].children[0].checked = false;
+									input.parentNode.parentNode.children[8].children[1].value ="off";
+								}else{
+									//se enciende sobrante y se apaga faltante.
+									input.parentNode.parentNode.children[8].children[0].checked =true;
+									input.parentNode.parentNode.children[8].children[1].value ="on";
+									
+									input.parentNode.parentNode.children[9].children[0].checked =false;
+									input.parentNode.parentNode.children[9].children[1].value ="off";
+								}
+							}
+							//option 1 es enviado al hacer clic en faltante
+							if(option==1){
+								if(!input.parentNode.parentNode.children[9].children[0].checked){
+									//se apaga faltante
+									input.parentNode.parentNode.children[9].children[0].checked =false;
+									input.parentNode.parentNode.children[9].children[1].value ="off";
 
-								if(input.parentNode.parentNode.children[9].children[0].checked){
+								}else{
+									// se enciende faltante y se apaga sobrante y el valor de cantidad se escribe en cero.
+									input.parentNode.parentNode.children[9].children[0].checked =true;
+									input.parentNode.parentNode.children[9].children[1].value ="on";
+									input.parentNode.parentNode.children[8].children[0].checked =false;
+									input.parentNode.parentNode.children[8].children[1].value ="off";
 									input.parentNode.parentNode.children[3].children[0].value="0";
 								}
 							}

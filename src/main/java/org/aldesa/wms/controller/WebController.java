@@ -173,6 +173,7 @@ public class WebController {
         	if (inf.getTipoDeposito().equalsIgnoreCase("D")) {
                 mdl = new ModelAndView("reporte.recibida_desconsolidado");
                 mdl.addObject("enc", observ1);
+                mdl.addObject("ingresos", ingresos);
             } else {
             	
             	if(verificacionInforme.equals("L")) {     
@@ -481,9 +482,9 @@ public class WebController {
 				if(sobrante[i].equalsIgnoreCase("on")) {
 					
 					if (tipo.equalsIgnoreCase("D")){
-					  bDao.actualizarSobrante(deposito,cod[i] , cod[i], estado[i], item[i],nolote[i],fechavto[i]);
+					  bDao.actualizarSobrante(deposito,cod[i] , cod[i], estado[i], item[i],nolote[i]);
 					}else {					  
-						bDao.actualizarSobrante(deposito,cliente , cod[i], estado[i], item[i],nolote[i],fechavto[i]);
+						bDao.actualizarSobrante(deposito,cliente , cod[i], estado[i], item[i],nolote[i]);
 					}
 				}
 			}
@@ -719,10 +720,13 @@ public class WebController {
 					
 				   if (tipo.equalsIgnoreCase("D")){
 
-					    bDao.actualizarSobrante(deposito, codMerc[i], codMerc[i], estado[i],item[i],nolote[i],fechavto[i]);
+					    bDao.actualizarSobrante(deposito, codMerc[i], codMerc[i], estado[i],item[i],nolote[i]);
+					    throw new Exception("se encontro un sobrante en desconsolidacion");
 				   }else {
 
-						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nolote[i],fechavto[i]);
+						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nolote[i]);
+					    throw new Exception("se encontro un sobrante.");
+
 				   }
 				}
 				p = new MercPendRecibir();
