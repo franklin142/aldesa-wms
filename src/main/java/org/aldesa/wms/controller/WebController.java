@@ -721,11 +721,9 @@ public class WebController {
 				   if (tipo.equalsIgnoreCase("D")){
 
 					    bDao.actualizarSobrante(deposito, codMerc[i], codMerc[i], estado[i],item[i],nolote[i]);
-					    throw new Exception("se encontro un sobrante en desconsolidacion");
 				   }else {
 
 						bDao.actualizarSobrante(deposito, cliente.getCliente_No(), codMerc[i], estado[i],item[i],nolote[i]);
-					    throw new Exception("se encontro un sobrante.");
 
 				   }
 				}
