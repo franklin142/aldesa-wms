@@ -128,6 +128,7 @@
                           {text:'Estado Mercaderia',alignment: 'center'}
                         ],
                          <c:forEach var="m" items="${retiros}" varStatus="loop">
+                         <c:if test="${m.getBultos()>0}">
                         [
                             {text:'${ m.getDeposito() }',alignment: 'center'},
                             {text:'${ m.getCodigo() }',alignment: 'center'},
@@ -137,8 +138,8 @@
                             {text:'${ m.getBultos() }',alignment: 'right'},
                             {text:'${ m.getUnidad_de_Medida() }',alignment: 'center'},
                             {text:'${ m.getEstado() }',alignment: 'center'}
-                        ],</c:forEach>
-                        [{text:'Total Retiro: ${tbultos+tordenada-tdiferencia}',colSpan:5,alignment: 'center'},
+                        ],</c:if></c:forEach>
+                        [{text:'Total Retiro: ${tbultos}',colSpan:5,alignment: 'center'},
                             '','','','','','',''] 
                     ]
                 }},

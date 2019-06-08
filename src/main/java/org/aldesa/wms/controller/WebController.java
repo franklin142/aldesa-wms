@@ -301,6 +301,9 @@ public class WebController {
 		int tbultos=0, tordenada=0, tentregada=0;
          for(DetalleInformeRetiro dir:retiros){
             tbultos = tbultos + dir.getBultos();
+        //    if(dir.getEntregada()==0){
+        //    	retiros.remove(dir);
+        //    }
         //    tentregada = tentregada + dir.getEntregada();
         //    tordenada = tordenada + dir.getCantidad();
         }
