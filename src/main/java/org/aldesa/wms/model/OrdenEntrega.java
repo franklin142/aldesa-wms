@@ -55,6 +55,15 @@ public class OrdenEntrega {
 	
 	@Column(name="Fec_Venc_Lote")
 	private Date fechaVto;
+	
+	@Column(name="motorista")
+	private String motorista;
+	
+	@Column(name="licencia")
+	private String licencia;
+	
+	@Column(name="placa")
+	private String placa;
     @Transient
 	private String fechaVtoString;
 
@@ -226,4 +235,28 @@ public class OrdenEntrega {
 		this.fechaVtoString = fechaVtoString;
 	}
 
+	public String getMotorista() {
+		return motorista;
+	}
+
+	public void setMotorista(String motorista) {
+		this.motorista = motorista;
+	}
+
+	public String getLicencia() {
+		return licencia;
+	}
+
+	public void setLicencia(String licencia) {
+		this.licencia = licencia;
+	}
+
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+	
 }

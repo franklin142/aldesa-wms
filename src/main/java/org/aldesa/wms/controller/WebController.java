@@ -1281,6 +1281,9 @@ public class WebController {
         mdl.addObject("tdepositos", tdepositos);
 		mdl.addObject("subtotsol", subtotalessol);
 		mdl.addObject("subtotpre", subtotalesprep);
+		mdl.addObject("motorista", (ordenes.size()>0)?ordenes.get(0).getMotorista():"");
+		mdl.addObject("licencia", (ordenes.size()>0)?ordenes.get(0).getLicencia():"");
+		mdl.addObject("placa", (ordenes.size()>0)?ordenes.get(0).getPlaca():"");
         return mdl;
     }
 	//REPORTE ORDEN DE PREPARACION
@@ -1317,8 +1320,9 @@ public class WebController {
 					ord.setFechaVtoString(formatter.format(ord.getFechaVto()));
 				}
 				
+				
 			}
-
+			
 			depo = ord.getDeposito();
 			codigo = ord.getCodigo();
 			if(!depositos.contains(depo))
@@ -1353,6 +1357,7 @@ public class WebController {
 			tsaldo += Integer.parseInt(""+t[4]);
 
 		}
+		
 		mdl.addObject("recepcion_mercaderia", ordenesHash.values());
 		mdl.addObject("fecha", (new SimpleDateFormat("dd/MM/yyy HH:mm:ss")).format(new Date()));
 		mdl.addObject("orden", orden);
@@ -1366,7 +1371,9 @@ public class WebController {
 		mdl.addObject("tsaldo", tsaldo);
 		mdl.addObject("tdepositos", tdepositos);
 		mdl.addObject("stdepositos", stdepositos);
-		
+		mdl.addObject("motorista", (ordenes.size()>0)?ordenes.get(0).getMotorista():"");
+		mdl.addObject("licencia", (ordenes.size()>0)?ordenes.get(0).getLicencia():"");
+		mdl.addObject("placa", (ordenes.size()>0)?ordenes.get(0).getPlaca():"");
         return mdl;
 		
 	}

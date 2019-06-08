@@ -1082,16 +1082,14 @@ public class BulkDaoImpl implements BulkDao{
 				.executeUpdate();  
 	}
 	
-	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,String fechavto){
-		String sqlString = "Select fun_Reagrupacion(:bulk, :producto, :cantidad, :bulkd, :usr, :nlote, :fechavto);";
+	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr){
+		String sqlString = "Select fun_Reagrupacion(:bulk, :producto, :cantidad, :bulkd, :usr);";
 		Query q = em.createNativeQuery(sqlString);
 		       q.setParameter("bulk", bulk)
 				.setParameter("producto", producto)
 				.setParameter("cantidad", cantidad)
 				.setParameter("bulkd", bulkd)
-				.setParameter("usr", usr)
-				.setParameter("nlote", nlote)
-				.setParameter("fechavto", fechavto);
+				.setParameter("usr", usr);
 		  List<Object[]> rs = q.getResultList();
 		return rs;
 	}

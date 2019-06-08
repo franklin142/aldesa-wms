@@ -98,7 +98,7 @@ public interface BulkDao {
 	public List<OrdenReingreso> getOrdenReingreso(String orden);
 	public List<Object[]> getSubtotalesOrdenReingreso(Integer orden, String cliente);
 	public List<Object[]> getTotalesOrdenReingreso(Integer orden, String cliente);
-	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr,String nlote,String fechavto);
+	public List<Object[]> fun_reagrupacion(String bulk, String producto, String cantidad, String bulkd, String usr);
 	public String verificacionInforme(String deposito);
 	public String verificacionInformeR(String orden);
 	public String VerificaFechaLote(String nlote,String fechavto);

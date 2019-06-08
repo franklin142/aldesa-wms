@@ -309,13 +309,11 @@ public class UbicacionController {
 			@RequestParam String producto,
 			@RequestParam String cantidad,
 			@RequestParam String bulkd,
-            @RequestParam String nlote,
-            @RequestParam String fechavto,
             HttpServletRequest request, HttpServletResponse response) 
             		throws IOException {
         
 		String usr = ControllerUtils.getUsuario(request,"0");
-		List<Object[]> vResultado=detDao.fun_reagrupacion(bulk, producto, cantidad, bulkd,usr,nlote,fechavto);
+		List<Object[]> vResultado=detDao.fun_reagrupacion(bulk, producto, cantidad, bulkd,usr);
         response.getWriter().write("{ejecutado:"+vResultado.get(0)+"}");
 	}
 }
