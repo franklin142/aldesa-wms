@@ -52,6 +52,7 @@
                                 alignment: 'right',
                                 width: 200
                             }
+                            
                         ]
                     }
                 ]
@@ -61,6 +62,15 @@
             fontSize: 8,
             stack:[
                     <c:forEach var="d" items="${depositos}" varStatus="loop">{text:'\n\nDEPOSITO: ${ d }\n\n', bold:true, fontSize: 9},
+                    {
+                        margin: [0,5,0,5],
+                        columns:[
+                            {text:[{text:'Motorista: ',bold:true,fontSize: 11}, {text:'${motorista}        ',fontSize: 11},
+                            	   {text:'Licencia: ',bold:true,fontSize: 11}, {text:'${licencia}        ',fontSize: 11},
+                            	   {text:'Placa: ',bold:true,fontSize: 11}, {text:'${placa}',fontSize: 11}
+                            	  ]}
+                            ]
+                    },
                 {table:{
                     headerRows:1,
                     margins:[0,2,0,0],fontSize: 8,

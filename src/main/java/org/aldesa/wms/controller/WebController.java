@@ -891,6 +891,8 @@ public class WebController {
             List<Usuario> lista_jefes = uDao.getAll("A");
     		MercRecibidaCompleta dep = bDao.getMercaderiaCompletaByDeposito(deposito);
     		List<InformeIngreso> observ = bDao.getInformeIngreso(deposito);
+    		List<MERCAD_RECIBIDA_v> mercadRecibida=bDao.getTotalBultos(deposito, cliente);
+			Double totalBultos=mercadRecibida.get(0).getTotal_Bultos();
     		if(observ.size()<1){
     			response.sendError(HttpServletResponse.SC_NOT_FOUND, "informe ingreso de deposito " + deposito +
     					" inexistente");
@@ -911,6 +913,7 @@ public class WebController {
             }
     		mdl.addObject("recepcion_mercaderia", lista_mercaderia);
     		mdl.addObject("deposito", deposito);
+    		mdl.addObject("totalBultos",totalBultos);
     		mdl.addObject("cliente", cliente);
     		mdl.addObject("mercaderia", dep);
             mdl.addObject("jefes", lista_jefes);
@@ -991,6 +994,7 @@ public class WebController {
 			mdl.addObject("tbulkstemp",0);
 			mdl.addObject("tbulksdef",0);
 			mdl.addObject("ubicaciones", new ArrayList<BulkCreadosRes>());
+			
 		}else{
 			mdl.addObject("deposito", deposito);
 			List<BulkCreadosRes> bc = bDao.getBulkCreadosRes(deposito);

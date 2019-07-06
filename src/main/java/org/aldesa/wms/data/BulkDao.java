@@ -102,5 +102,5 @@ public interface BulkDao {
 	public String verificacionInforme(String deposito);
 	public String verificacionInformeR(String orden);
 	public String VerificaFechaLote(String nlote,String fechavto);
-
+	public List<MERCAD_RECIBIDA_v> getTotalBultos(String deposito, String cliente);
 }

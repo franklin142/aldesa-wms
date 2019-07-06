@@ -95,6 +95,16 @@
 	                    <input type="submit" class="btn btn-primary btn-block" value="Finalizar Recepcion"
                  		<c:if test="${ inf.getEntregado().length()<4 }">disabled</c:if>
                 		/>
+                		<div class="col-md-3 form-group">
+	                        <c:if test="${totalBultos<=0}">
+	                            <input  type="submit"  class="btn btn-primary btn-block disabled" value="Finalizar Recepcion"/>
+	                        </c:if>
+	                		<c:if test="${totalBultos>0}">   
+	                    		<input type="submit" class="btn btn-primary btn-block" value="Finalizar Recepcion"
+	                            <c:if test="${ inf.getEntregado().length()<4 }">disabled</c:if>
+	                            />
+	                        </c:if>
+                    	</div>
 	                </div>
                 </div>
             </div>

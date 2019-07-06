@@ -669,7 +669,19 @@ public class BulkDaoImpl implements BulkDao{
                 return em.createQuery(criteria).getResultList();
     }
 
-	public List<Object[]> getSubtotalesOrdenEntrega(Integer orden, String cliente){
+   @Override
+   public List<MERCAD_RECIBIDA_v> getTotalBultos(String deposito, String cliente) {
+               CriteriaBuilder cb = em.getCriteriaBuilder();
+               CriteriaQuery<MERCAD_RECIBIDA_v> criteria = cb.createQuery(MERCAD_RECIBIDA_v.class);
+               Root<MERCAD_RECIBIDA_v> user = criteria.from(MERCAD_RECIBIDA_v.class);
+               criteria.where(cb.and(
+               cb.equal(user.get("deposito_No"), deposito),
+               cb.equal(user.get("cliente"), cliente)
+               ));
+               criteria.select(user);
+               return em.createQuery(criteria).getResultList();
+   }
+   public List<Object[]> getSubtotalesOrdenEntrega(Integer orden, String cliente){
 		String sql = "SELECT \n" +
 				"Ordenes_Entrega_v.Retiro_Mercaderia_No,\n" +
 				"Ordenes_Entrega_v.Deposito,\n" +
@@ -1123,5 +1135,6 @@ public class BulkDaoImpl implements BulkDao{
 		
 		
 	}	
+	
 }
 
