@@ -91,21 +91,16 @@
 	                <div class="col-md-3 form-group">
 	                	<a href="/wms-aldesa/web/reporte/ubicacion_deposito/${deposito}" class="btn btn-primary btn-block" >Informe Bulks Creados</a>
 	                </div>
-	                <div class="col-md-3 form-group">
-	                    <input type="submit" class="btn btn-primary btn-block" value="Finalizar Recepcion"
-                 		<c:if test="${ inf.getEntregado().length()<4 }">disabled</c:if>
-                		/>
-                		<div class="col-md-3 form-group">
-	                        <c:if test="${totalBultos<=0}">
-	                            <input  type="submit"  class="btn btn-primary btn-block disabled" value="Finalizar Recepcion"/>
-	                        </c:if>
-	                		<c:if test="${totalBultos>0}">   
-	                    		<input type="submit" class="btn btn-primary btn-block" value="Finalizar Recepcion"
-	                            <c:if test="${ inf.getEntregado().length()<4 }">disabled</c:if>
-	                            />
-	                        </c:if>
-                    	</div>
-	                </div>
+               		<div class="col-md-3 form-group">
+                        <c:if test="${totalBultos<=0}">
+                            <input  type="submit"  class="btn btn-primary btn-block disabled" value="Finalizar Recepcion"/>
+                        </c:if>
+                		<c:if test="${totalBultos>0}">   
+                    		<input type="submit" class="btn btn-primary btn-block" value="Finalizar Recepcion"
+                            <c:if test="${ inf.getEntregado().length()<4 }">disabled</c:if>
+                            />
+                        </c:if>
+                   	</div>
                 </div>
             </div>
         </form>
