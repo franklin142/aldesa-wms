@@ -211,7 +211,7 @@
                   <c:forEach var="m" items="${ ingresos }" varStatus="loop">
                   <c:if  test="${m.getCorrelativo().equalsIgnoreCase(enc.getNumeroInforme())}">[
                        '${ m.getDescripcion() }',{text:'${ m.getDeclarada() }',alignment: 'right'},
-                       {text:'${ m.getRecibida() }',alignment: 'right'},
+                       {text:'${ m.getRecibida() +m.getAveriada()    }',alignment: 'right'},
                        {text:'${ m.getSaldo() }',alignment: 'right'},
                        '${ m.getUnidadMedida() }','Segun Obs.',' '
                    ],</c:if>
