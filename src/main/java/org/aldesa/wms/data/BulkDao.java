@@ -34,7 +34,7 @@ public interface BulkDao {
 	public OrdenRetiro getOrdenRetiroById(int pk);
 	public Cliente getClienteById(String pk);
 	public DetalleBulk updateDetalle(DetalleBulk db);
-	public void updateDetalle(String bulk, String producto, double cantidad, String estado,String nlote);
+	public void updateDetalle(String bulk, String producto, double cantidad, String estado,String nlote,String nloteo,String fechavto);
 	public List<String> reingresoDetalleBulk(String bulk, String retiro, String posicion);
 	public List<String> validaEntrega(String retiro, String cliente);
 	public List<MercPendPreparar> despachoGetAllPendientes();

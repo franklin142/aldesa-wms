@@ -417,7 +417,7 @@ public class WebController {
 		return new ModelAndView("redirect:/web/arribos_detalle_ver?cliente="+cliente+"&deposito="+deposito+"&msg=404&tipo="+tipo);
 
 	}
-    @RequestMapping(value = "edit_bulk/{bulk}", method = RequestMethod.POST)
+	@RequestMapping(value = "edit_bulk/{bulk}", method = RequestMethod.POST)
     public ModelAndView post_edit_det_arribos(
             @PathVariable String bulk,
             @RequestParam String alto,
@@ -434,7 +434,8 @@ public class WebController {
             @RequestParam(required=false, defaultValue="-") String[] sobrante,
             @RequestParam(required=false, defaultValue="") String[] item,
             @RequestParam(required=false, defaultValue="") String[] nolote,
-            @RequestParam(required=false, defaultValue="") String[] fechavto,
+            @RequestParam(required=false, defaultValue="") String[] noloteo,
+            @RequestParam(required=false) String[] varfechavto,
 
             HttpServletRequest request, HttpServletResponse response)  throws Exception{
     	
@@ -478,9 +479,24 @@ public class WebController {
 		}
 		b.setCodigoBulk(bulk);
 		bDao.save(b);
-		if(!nodet) {
-			for(int i=0; i< cod.length; i++){				
-				bDao.updateDetalle(bulk, cod[i], Double.parseDouble(porbulk[i]), estado[i],nolote[i]);
+		if(!nodet) {        
+
+			for(int i=0; i< cod.length; i++){	
+				
+					if(!varfechavto[i].equals("null")) {
+	                	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+	    				Date fechaVTO = formatter.parse(varfechavto[i]);
+	    				formatter= new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+	    				varfechavto[i]=formatter.format(fechaVTO);
+	                }else {
+	                	
+	                			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+	                			varfechavto[i]=formatter.format(Calendar.getInstance().getTime());
+
+	                }
+	                
+				
+				bDao.updateDetalle(bulk, cod[i], Double.parseDouble(porbulk[i]), estado[i],nolote[i],noloteo[i],varfechavto[i]);
 				// actualizar sobrantes  b.getCliente()
 				if(sobrante[i].equalsIgnoreCase("on")) {
 					
@@ -491,6 +507,7 @@ public class WebController {
 					}
 				}
 			}
+
     	ModelAndView mv = new ModelAndView("edit_bulk");
         b = bDao.getById(bulk);
         List<DetalleBulk> db = bDao.getDetalleByBulk(bulk);

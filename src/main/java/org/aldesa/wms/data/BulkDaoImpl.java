@@ -263,18 +263,15 @@ public class BulkDaoImpl implements BulkDao{
 		        //return 1;
 	}
 
-	public void updateDetalle(String bulk, String producto, double cantidad,String estado,String nlote){
+	public void updateDetalle(String bulk, String producto, double cantidad,String estado,String nlote,String nloteo, String fechavto){
 
-		String sqlString = "Update detalle_bulk Set cantidad=:cantidad, estado_merc=:estado_merc "
-					+ "Where codigo_bulk =:bulk "
-					+ "And codigo_producto=:prod "
-					+ "And No_Lote=:nlote "
-					+";";
-		 
-		Query query = em.createNativeQuery(sqlString);
-		query.setParameter("cantidad", cantidad)
+	    String sqlString = "CALL PRC_Actualiza_Lote(:bulk,:prod,:cantidad,:estado_merc,:nloteo,:nlote,:fechavto);";
+	    Query query = em.createNativeQuery(sqlString);
+	    query.setParameter("cantidad", cantidad)
 			.setParameter("estado_merc", estado)
 			.setParameter("nlote", nlote)
+            .setParameter("nloteo",nloteo)
+            .setParameter("fechavto",fechavto)
 			.setParameter("bulk", bulk)
 			.setParameter("prod", producto)
 			.executeUpdate();
@@ -1018,7 +1015,7 @@ public class BulkDaoImpl implements BulkDao{
 		String sql = "select deposito, CAST(ROUND(sum(ancho),2) as char), CAST(ROUND(sum(alto),2) as char), " +
 		"CAST(ROUND(sum(profundidad),2) as char), CAST(ROUND(sum(ancho*profundidad),2) as char), " +
 		"CAST(ROUND(sum(ancho*profundidad*alto),2) as char), CAST(ROUND(sum(peso),2) as char) " +
-		"from  Bulkc_v where deposito=:deposito " + 
+		"from  Bulk where deposito=:deposito " + 
 		" group by deposito;";
 		Query q = em.createNativeQuery(sql);
 		q.setParameter("deposito", deposito);
@@ -1137,4 +1134,3 @@ public class BulkDaoImpl implements BulkDao{
 	}	
 	
 }
-
